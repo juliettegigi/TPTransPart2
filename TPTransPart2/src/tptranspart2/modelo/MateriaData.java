@@ -20,28 +20,26 @@ public class MateriaData {
 
     static Connection c;
     static PreparedStatement p;
-    static String sql;
+   
     public static boolean insertarMateria(Materia m){
         
         c=Conexion.getConexion();
-        if(c==null)  //agregar esto
+        if(c==null)  
            return false;
         
         try {
-            //quito el modo automático, le voy a decir cuando confirmo realizar todo, q es antes de cerrar el try sino ejecuta todo
-       //     c.setAutoCommit(false);
+           
             System.out.println("hola");
             p= c.prepareStatement("INSERT INTO materia(nombre,año, estado) VALUES (?,?,?);");
             p.setString(1,m.getNombre());
             p.setInt(2,m.getAnio());
             p.setBoolean(3,m.isEstado());
             p.execute();
-         //    c.commit();
             return true;
             
         } catch (SQLException ex) {
+            System.out.println("insertarMateria(Materia m)");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-         //   hacerRollback();
         
         }
         finally{ 
@@ -61,6 +59,7 @@ public class MateriaData {
             p.execute();
             return true;
            } catch (SQLException ex) {
+                System.out.println("borrarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
              finally{
@@ -71,13 +70,15 @@ public class MateriaData {
     
  private static void cerrarcyp(){
          try {
-                    // cierro las
+                    
                     p.close();
                     c.close();
                 } catch (SQLException ex1) {
+                    System.out.println("cerrarcyp()");
                     Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 catch(Exception e){
+                     System.out.println("cerrarcyp()");
                     e.printStackTrace();
                 }
  }
