@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tptranspart2.modelo;
+package tptranspart2.accesoADatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,12 +14,19 @@ import java.sql.SQLException;
  * @author julie
  */
 public class Conexion {
-
-    static Connection getConexion() {
-        Connection con=null; 
-		final String URL="jdbc:mariadb://localhost/universidadGp8";
-		final String USER="root";
-		final String PASS="";
+    final static String URL="jdbc:mariadb://localhost/universidadGp8";
+    final static String USER="root";
+    final static String PASS="";
+    
+    private static Connection con;
+    
+    private Conexion(){
+        
+    }
+    
+    public static Connection getConexion() {
+        
+        if( con==null) {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
                         con=DriverManager.getConnection(URL,USER,PASS);
@@ -31,6 +38,7 @@ public class Conexion {
 			System.out.println("error de conexión");
 			e.printStackTrace();
 		}
+        }
                 
                 return con;// retorno null si no me conecto 
                            // sino la conexión

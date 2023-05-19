@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tptranspart2.modelo;
+package tptranspart2.entidades;
 
 /**
  *
@@ -11,12 +11,22 @@ package tptranspart2.modelo;
  */
 public class Inscripcion {
       private int idInscripto;
-    private Alumno alumano;
-    private int nota;
+    private Alumno alumno;
+    private double nota;
     private Materia materia;
+    
+    public Inscripcion(){
+        
+    }
+    
+    public Inscripcion(int idInscripto ,Alumno alumano, int nota, Materia materia) {
+        this.alumno = alumano;
+        this.nota = nota;
+        this.materia = materia;
+    }
 
-    public Inscripcion(Alumno alumano, int nota, Materia materia) {
-        this.alumano = alumano;
+    public Inscripcion(Alumno alumno, int nota, Materia materia) {
+        this.alumno = alumno;
         this.nota = nota;
         this.materia = materia;
     }
@@ -26,10 +36,10 @@ public class Inscripcion {
     }
 
     public Alumno getAlumano() {
-        return alumano;
+        return alumno;
     }
 
-    public int getNota() {
+    public double getNota() {
         return nota;
     }
 
@@ -42,7 +52,7 @@ public class Inscripcion {
     }
 
     public void setAlumano(Alumno alumano) {
-        this.alumano = alumano;
+        this.alumno = alumano;
     }
 
     public void setNota(int nota) {
@@ -55,7 +65,7 @@ public class Inscripcion {
 
     @Override
     public String toString() {
-        return "Inscripcion{" + "idInscripto=" + idInscripto + ", alumano=" + alumano + ", nota=" + nota + ", materia=" + materia + '}';
+        return "Inscripcion{" + "idInscripto=" + idInscripto + ", alumano=" + alumno + ", nota=" + nota + ", materia=" + materia + '}';
     }
     
     

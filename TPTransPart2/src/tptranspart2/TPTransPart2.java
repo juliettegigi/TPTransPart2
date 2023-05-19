@@ -5,8 +5,8 @@
  */
 package tptranspart2;
 
-import tptranspart2.modelo.Materia;
-import tptranspart2.modelo.MateriaData;
+import tptranspart2.entidades.Materia;
+import tptranspart2.accesoADatos.MateriaData;
 
 
 

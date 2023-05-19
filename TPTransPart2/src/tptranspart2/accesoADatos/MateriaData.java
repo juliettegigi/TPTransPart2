@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tptranspart2.modelo;
+package tptranspart2.accesoADatos;
 
+import tptranspart2.accesoADatos.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import tptranspart2.entidades.Materia;
 
 
 /**

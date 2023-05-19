@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tptranspart2.modelo;
+package tptranspart2.accesoADatos;
 
 /**
  *
  * @author julie
  */
-public class InscripcionData {
+public class AlumnoData {
     
 }

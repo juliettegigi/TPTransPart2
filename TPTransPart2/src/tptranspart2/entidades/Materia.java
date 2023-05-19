@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tptranspart2.modelo;
+package tptranspart2.entidades;
 
 /**
  *
@@ -14,6 +14,18 @@ public class Materia {
     private  String nombre;
     private  int anio;
     private boolean estado;
+    
+    
+      public Materia(){
+    }
+    
+    
+      public Materia(int idMateria, String nombre,int anio, boolean estado){
+        this.idMateria=idMateria;
+        this.nombre=nombre;
+        this.anio=anio;
+        this.estado=estado;
+    }
     
     public Materia(String nombre,int anio, boolean estado){
        

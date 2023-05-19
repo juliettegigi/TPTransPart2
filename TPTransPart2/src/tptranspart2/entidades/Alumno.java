@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tptranspart2.modelo;
+package tptranspart2.entidades;
 
 import java.time.LocalDate;
 
@@ -18,7 +18,20 @@ public class Alumno {
     private String apellido;
     private boolean estado;
     private LocalDate fechaNacimiento;
-
+    
+    Alumno(){
+        
+    }
+    
+    public Alumno(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
+        this.idAlumno = idAlumno;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.estado = estado;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
     public Alumno(int idAlumno, int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
         this.idAlumno = idAlumno;
         this.dni = dni;
