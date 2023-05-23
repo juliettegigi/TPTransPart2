@@ -10,16 +10,17 @@ package tptranspart2.entidades;
  * @author julie
  */
 public class Inscripcion {
-      private int idInscripto;
+
+    private int idInscripto;
     private Alumno alumno;
     private double nota;
     private Materia materia;
-    
-    public Inscripcion(){
-        
+
+    public Inscripcion() {
+
     }
-    
-    public Inscripcion(int idInscripto ,Alumno alumano, int nota, Materia materia) {
+
+    public Inscripcion(int idInscripto, Alumno alumano, int nota, Materia materia) {
         this.alumno = alumano;
         this.nota = nota;
         this.materia = materia;
@@ -67,9 +68,5 @@ public class Inscripcion {
     public String toString() {
         return "Inscripcion{" + "idInscripto=" + idInscripto + ", alumano=" + alumno + ", nota=" + nota + ", materia=" + materia + '}';
     }
-    
-    
 
-   
-    
 }

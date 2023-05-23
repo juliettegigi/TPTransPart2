@@ -12,17 +12,18 @@ import java.time.LocalDate;
  * @author julie
  */
 public class Alumno {
-     private int idAlumno;
+
+    private int idAlumno;
     private int dni;
     private String nombre;
     private String apellido;
     private boolean estado;
     private LocalDate fechaNacimiento;
-    
-    Alumno(){
-        
+
+    Alumno() {
+
     }
-    
+
     public Alumno(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
         this.idAlumno = idAlumno;
         this.dni = dni;
@@ -31,7 +32,7 @@ public class Alumno {
         this.estado = estado;
         this.fechaNacimiento = fechaNacimiento;
     }
-    
+
     public Alumno(int idAlumno, int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
         this.idAlumno = idAlumno;
         this.dni = dni;
@@ -93,6 +94,5 @@ public class Alumno {
     public String toString() {
         return "Alumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", estado=" + estado + ", fechaNacimiento=" + fechaNacimiento + '}';
     }
-    
-    
+
 }

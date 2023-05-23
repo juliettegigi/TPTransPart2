@@ -10,29 +10,27 @@ package tptranspart2.entidades;
  * @author julie
  */
 public class Materia {
-     private int idMateria;
-    private  String nombre;
-    private  int anio;
+
+    private int idMateria;
+    private String nombre;
+    private int anio;
     private boolean estado;
-    
-    
-      public Materia(){
+
+    public Materia() {
     }
-    
-      
-    
-      public Materia(int idMateria, String nombre,int anio, boolean estado){
-        this.idMateria=idMateria;
-        this.nombre=nombre;
-        this.anio=anio;
-        this.estado=estado;
+
+    public Materia(int idMateria, String nombre, int anio, boolean estado) {
+        this.idMateria = idMateria;
+        this.nombre = nombre;
+        this.anio = anio;
+        this.estado = estado;
     }
-    
-    public Materia(String nombre,int anio, boolean estado){
-       
-        this.nombre=nombre;
-        this.anio=anio;
-        this.estado=estado;
+
+    public Materia(String nombre, int anio, boolean estado) {
+
+        this.nombre = nombre;
+        this.anio = anio;
+        this.estado = estado;
     }
 
     public boolean isEstado() {
@@ -42,9 +40,6 @@ public class Materia {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    
-    
 
     public int getIdMateria() {
         return idMateria;

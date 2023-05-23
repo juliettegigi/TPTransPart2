@@ -10,5 +10,5 @@ package tptranspart2.accesoADatos;
  * @author julie
  */
 public class InscripcionData {
-    
+
 }
