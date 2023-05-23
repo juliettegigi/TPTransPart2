@@ -22,11 +22,11 @@ public class TPTransPart2 {
     public static void main(String[] args) {
         
         
-        Materia m=new Materia("jjjjj",5,true);
+  
        
      
        
-        System.out.println(MateriaData.insertarMateria(m));
+        
     }
     
 }

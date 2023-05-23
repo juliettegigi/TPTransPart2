@@ -19,6 +19,7 @@ public class Materia {
       public Materia(){
     }
     
+      
     
       public Materia(int idMateria, String nombre,int anio, boolean estado){
         this.idMateria=idMateria;

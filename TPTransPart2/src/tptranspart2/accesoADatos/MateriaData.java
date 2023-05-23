@@ -5,7 +5,7 @@
  */
 package tptranspart2.accesoADatos;
 
-import tptranspart2.accesoADatos.Conexion;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -69,7 +69,33 @@ public class MateriaData {
            }
         return false;
     }
+       
+       
+        public static boolean updateMateria(Materia materia){
+        c=Conexion.getConexion();
+        if(c==null)
+            return false;
+        try {
+            p= c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?");
+            p.setString(1, materia.getNombre());
+            p.setInt(2,materia.getAnio());
+            p.setBoolean(3, materia.isEstado());
+            p.setInt(4,materia.getIdMateria());
+            p.executeUpdate();
+            return true;
+           } catch (SQLException ex) {
+                System.out.println("updateMateria()");
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             finally{
+               cerrarcyp();
+           }
+        return false;
+    }   
     
+                
+        
+        
  private static void cerrarcyp(){
          try {
                     
