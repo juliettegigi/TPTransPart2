@@ -8,6 +8,7 @@ package tptranspart2.accesoADatos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tptranspart2.entidades.Materia;
@@ -16,11 +17,16 @@ import tptranspart2.entidades.Materia;
  *
  * @author julie
  */
-public class MateriaData {
-    static Connection c;
-    static PreparedStatement p;
 
-    public static boolean insertarMateria(Materia m) {
+public class MateriaData {
+
+    private static Connection c;
+    private static PreparedStatement p;
+
+    public MateriaData() {
+    }
+
+    public static boolean guardarMateria(Materia m) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;
@@ -36,7 +42,7 @@ public class MateriaData {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("insertarMateria(Materia m)");
+            System.out.println("guardarMateria(Materia m)");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
@@ -44,8 +50,20 @@ public class MateriaData {
         }
         return false;
     }
+    
+    /* FALTAN 3 METODOS 
+    
+    public static Materia buscarMateria(int id){  
+    }
 
-    public static boolean borrarMateria(int id) {
+    public static List<Materia> listarMaterias(){  
+    }
+    
+    public static boolean eliminarMateria (int id) CON DELETE {
+    }
+    */
+
+    public static boolean darBajaMaterias(int id) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;
@@ -56,7 +74,7 @@ public class MateriaData {
             p.execute();
             return true;
         } catch (SQLException ex) {
-            System.out.println("borrarMateria()");
+            System.out.println("darBajaMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
@@ -64,7 +82,7 @@ public class MateriaData {
         return false;
     }
 
-    public static boolean updateMateria(Materia materia) {
+    public static boolean modificarMateria(Materia materia) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;
@@ -78,13 +96,14 @@ public class MateriaData {
             p.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("updateMateria()");
+            System.out.println("modificarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
         return false;
     }
+    
 
     private static void cerrarcyp() {
         try {

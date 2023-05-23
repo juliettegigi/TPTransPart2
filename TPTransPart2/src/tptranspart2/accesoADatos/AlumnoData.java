@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tptranspart2.entidades.Alumno;
@@ -17,12 +18,18 @@ import tptranspart2.entidades.Alumno;
  *
  * @author julie
  */
+
 public class AlumnoData {
     
-    static Connection c;
-    static PreparedStatement p;
+    private static Connection c;
+    private static PreparedStatement p;
 
-    public static boolean insertarAlumno(Alumno a) {
+    public AlumnoData() {
+        c = Conexion.getConexion();
+    }
+    
+
+    public static boolean guardarAlumno(Alumno a) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;
@@ -40,7 +47,7 @@ public class AlumnoData {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("insertarAlumno (Alumno a)");
+            System.out.println("guardarAlumno (Alumno a)");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
@@ -48,8 +55,24 @@ public class AlumnoData {
         }
         return false;
     }
-
-    public static boolean borrarAlumno(int id) {
+    
+    /* FALTAN 4 METODOS Y ARREGLAR FECHA
+    
+    public static Alumno buscarAlumno(int id){
+    }
+    
+    public  Alumno buscarAlumnoPorDni(int dni){
+    }
+    
+    public static List<Alumno> listasAlumnos(){  
+    }
+    
+    public static boolean eliminarAlumno (ind id) CON DELETE {
+    CON DELETE
+    }
+    */
+    
+    public static boolean darBajaAlumno(int id) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;
@@ -60,7 +83,7 @@ public class AlumnoData {
             p.execute();
             return true;
         } catch (SQLException ex) {
-            System.out.println("borrarAlumno()");
+            System.out.println("darBajaAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
@@ -68,7 +91,7 @@ public class AlumnoData {
         return false;
     }
 
-    public static boolean updateAlumno(Alumno a) {
+    public static boolean modificarAlumno(Alumno a) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;

@@ -23,8 +23,8 @@ public class TPTransPart2 {
     public static void main(String[] args) {
 
         //(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento)
-        Alumno a = new Alumno(15894786,"Roberto","Sanchez",true, LocalDate.of(1990, 5, 11));
-        AlumnoData.insertarAlumno(a);
-        
+        //Alumno a = new Alumno(1585289,"Roberto","Gomez",true,LocalDate.of(1985, 5, 5));
+        //AlumnoData alumno = new AlumnoData();
+        AlumnoData.darBajaAlumno(5);
     }
 }

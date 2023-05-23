@@ -21,7 +21,7 @@ public class Alumno {
     private LocalDate fechaNacimiento;
 
     Alumno() {
-
+        
     }
 
     public Alumno(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
