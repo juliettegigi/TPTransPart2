@@ -8,6 +8,7 @@ package tptranspart2.accesoADatos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tptranspart2.entidades.Alumno;
@@ -34,7 +35,7 @@ public class AlumnoData {
             p.setString(2, a.getNombre());
             p.setString(3, a.getApellido());
             p.setBoolean(4, a.isEstado());
-            p.setDate(5, new java.sql.Date(a.getFechaNacimiento().));
+            p.setDate(5, Date.valueOf(a.getFechaNacimiento()));
             p.execute();
             return true;
 
@@ -67,22 +68,25 @@ public class AlumnoData {
         return false;
     }
 
-    public static boolean updateMateria(Alumno materia) {
+    public static boolean updateAlumno(Alumno a) {
         c = Conexion.getConexion();
         if (c == null) {
             return false;
         }
         try {
-            p = c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?");
-            p.setString(1, materia.getNombre());
-            p.setInt(2, materia.getAnio());
-            p.setBoolean(3, materia.isEstado());
-            p.setInt(4, materia.getIdMateria());
+            p = c.prepareStatement("UPDATE alumno SET dni=?,nombre=?,apellido=?,estado=?,fechaNacimiento=? WHERE idAlumno=?");
+            
+            p.setInt(1, a.getDni());
+            p.setString(2, a.getNombre());
+            p.setString(3, a.getApellido());
+            p.setBoolean(4, a.isEstado());
+            p.setDate(5, Date.valueOf(a.getFechaNacimiento()));
+            
             p.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("updateMateria()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("updateAlumno()");
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
@@ -95,7 +99,7 @@ public class AlumnoData {
             c.close();
         } catch (SQLException ex1) {
             System.out.println("cerrarcyp()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex1);
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex1);
         } catch (Exception e) {
             System.out.println("cerrarcyp()");
             e.printStackTrace();

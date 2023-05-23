@@ -5,8 +5,11 @@
  */
 package tptranspart2;
 
+import java.time.LocalDate;
+import tptranspart2.accesoADatos.AlumnoData;
 import tptranspart2.entidades.Materia;
 import tptranspart2.accesoADatos.MateriaData;
+import tptranspart2.entidades.Alumno;
 
 /**
  *
@@ -19,6 +22,9 @@ public class TPTransPart2 {
      */
     public static void main(String[] args) {
 
+        //(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento)
+        Alumno a = new Alumno(15894786,"Roberto","Sanchez",true, LocalDate.of(1990, 5, 11));
+        AlumnoData.insertarAlumno(a);
+        
     }
-    
 }
