@@ -95,8 +95,10 @@ public class InscripcionData {
                 mat.setNombre(r.getString("nombre"));
                 m.add(mat);
             }
-        } catch(SQLException e){
-            System.out.println("Error al obtenerMateriasCursadas "+e.toString());
+        } catch(SQLException ex){
+            System.out.println("Error al obtenerMateriasCursadas "+ex.toString());
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } finally {
             cerrarcyp();
         }
