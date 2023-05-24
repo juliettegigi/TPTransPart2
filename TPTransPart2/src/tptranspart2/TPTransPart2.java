@@ -25,6 +25,7 @@ public class TPTransPart2 {
         //(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento)
         //Alumno a = new Alumno(1585289,"Roberto","Gomez",true,LocalDate.of(1985, 5, 5));
         //AlumnoData alumno = new AlumnoData();
-        AlumnoData.darBajaAlumno(5);
+        //AlumnoData.darBajaAlumno(5);
+        MateriaData.buscarMateria(2);
     }
 }

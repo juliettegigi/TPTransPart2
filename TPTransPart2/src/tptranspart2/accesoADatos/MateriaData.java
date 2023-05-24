@@ -29,9 +29,6 @@ public class MateriaData {
 
     public static boolean guardarMateria(Materia m) {
         c = Conexion.getConexion();
-        if (c == null) {
-            return false;
-        }
 
         try {
             System.out.println("hola");
@@ -53,22 +50,22 @@ public class MateriaData {
     }
     
     public static List<Materia> listarMaterias(){ 
+        c = Conexion.getConexion();
        Materia m = null;
         List<Materia> materias = new ArrayList<>();
-        String query = "SELECT * FROM materia";
-
+ 
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            p = c.prepareStatement("SELECT * FROM materia");
+            ResultSet rs = p.executeQuery();
             while (rs.next()) {
                 m = new Materia();
                 m.setIdMateria(rs.getInt("idMateria"));
                 m.setNombre(rs.getString("nombre"));
-                m.setAnio(rs.getInt("anio")); //VER SI FUNCIONA CON EL NOMBRE DEL SQL
+                m.setAnio(rs.getInt("año"));
                 m.setEstado(rs.getBoolean("estado"));
                 materias.add(m);
             }
-            ps.close();
+            p.close();
 
         } catch (SQLException ex) {
             System.out.println("listarMaterias()");
@@ -78,20 +75,20 @@ public class MateriaData {
     }
 
     public static Materia buscarMateria(int id){ 
+        c = Conexion.getConexion();
         Materia m = null;
-        String query = "SELECT * FROM materia WHERE idMateria=?";
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            p = c.prepareStatement("SELECT * FROM materia WHERE idMateria=?");
+            p.setInt(1, id);
+            ResultSet rs = p.executeQuery();
             while (rs.next()) {
                 m = new Materia();
                 m.setIdMateria(rs.getInt("idMateria"));
                 m.setNombre(rs.getString("nombre"));
-                m.setAnio(rs.getInt("anio")); //VER SI FUNCIONA CON EL NOMBRE DEL SQL
+                m.setAnio(rs.getInt("año"));
                 m.setEstado(rs.getBoolean("estado"));
             }
-            ps.close();
+            p.close();
         } catch (SQLException ex){
             System.out.println("buscarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);

@@ -30,9 +30,7 @@ public class AlumnoData {
 
     public static boolean guardarAlumno(Alumno a) {
         c = Conexion.getConexion();
-        if (c == null) {
-            return false;
-        }
+        
         try {
             p = c.prepareStatement("INSERT INTO alumno(dni,nombre,apellido,estado,fechaNacimiento) VALUES (?,?,?,?,?);");
             p.setInt(1, a.getDni());
@@ -52,12 +50,12 @@ public class AlumnoData {
     }
 
     public static Alumno buscarAlumno(int id) {
+        c = Conexion.getConexion();
         Alumno a = null;
-        String query = "SELECT * FROM alumno WHERE idAlumno=?";
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+            p = c.prepareStatement("SELECT * FROM alumno WHERE idAlumno=?");
+            p.setInt(1, id);
+            ResultSet rs = p.executeQuery();
             while (rs.next()) {
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
@@ -67,7 +65,7 @@ public class AlumnoData {
                 //a.setFechaNacimiento(rs.getDate("fechaNacimiento"))); PROBLEMA DATE
                 a.setEstado(rs.getBoolean("estado"));
             }
-            ps.close();
+            p.close();
         } catch (SQLException ex){
             System.out.println("buscarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,12 +74,12 @@ public class AlumnoData {
     }
     
     public static Alumno buscarAlumnoPorDni(int dni){
+        c = Conexion.getConexion();
         Alumno a = null;
-        String query = "SELECT * FROM alumno WHERE dni=?";
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ps.setInt(1, dni);
-            ResultSet rs = ps.executeQuery();
+            p = c.prepareStatement("SELECT * FROM alumno WHERE dni=?");
+            p.setInt(1, dni);
+            ResultSet rs = p.executeQuery();
             while (rs.next()) {
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
@@ -91,7 +89,7 @@ public class AlumnoData {
                 //a.setFechaNacimiento(rs.getDate("fechaNacimiento"))); PROBLEMA DATE
                 a.setEstado(rs.getBoolean("estado"));
             }
-            ps.close();
+            p.close();
         } catch (SQLException ex){
             System.out.println("buscarAlumnoPorDni()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,13 +98,12 @@ public class AlumnoData {
     }
 
     public static List<Alumno> listarAlumnos() {
+        c = Conexion.getConexion();
         Alumno a = null;
         List<Alumno> alumnos = new ArrayList<>();
-        String query = "SELECT * FROM alumno";
-
         try {
-            PreparedStatement ps = c.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            p = c.prepareStatement("SELECT * FROM alumno");
+            ResultSet rs = p.executeQuery();
             while (rs.next()) {
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
@@ -117,7 +114,7 @@ public class AlumnoData {
                 a.setEstado(rs.getBoolean("estado"));
                 alumnos.add(a);
             }
-            ps.close();
+            p.close();
 
         } catch (SQLException ex) {
             System.out.println("listarAlumnos()");

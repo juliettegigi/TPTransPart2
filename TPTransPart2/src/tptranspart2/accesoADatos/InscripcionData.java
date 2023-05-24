@@ -29,7 +29,7 @@ public class InscripcionData {
        String sql="INSERT INTO inscripcion (idAlumno, idMateria, nota) VALUES (?,?,?)";
        try{
            PreparedStatement ps= Conexion.getConexion().prepareStatement(sql);
-           ps.setInt(1, i.getAlumano().getIdAlumno());
+           ps.setInt(1, i.getAlumno().getIdAlumno());
            ps.setInt(2, i.getMateria().getIdMateria());
            ps.setDouble(3, i.getNota());
            ps.execute();
@@ -38,8 +38,8 @@ public class InscripcionData {
            System.out.println("Error al guardar inscripcion: "+e.toString());
            return false;
        }
-           
    }
+   
    
    public List <Inscripcion> obtenerInscripcionesPorAlumno(int id){
        //crear arraylist
