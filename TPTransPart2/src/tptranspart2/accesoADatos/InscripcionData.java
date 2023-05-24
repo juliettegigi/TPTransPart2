@@ -6,6 +6,8 @@
 package tptranspart2.accesoADatos;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import tptranspart2.entidades.Inscripcion;
 import tptranspart2.entidades.Materia;
@@ -23,29 +25,37 @@ public class InscripcionData {
    public InscripcionData() {
    }
    
-   /*public static boolean guardarInscripcion (Inscripcion i){
+   public boolean guardarInscripcion (Inscripcion i){
+       String sql="INSERT INTO inscripcion (idAlumno, idMateria, nota) VALUES (?,?,?)";
+       try{
+           PreparedStatement ps= Conexion.getConexion().prepareStatement(sql);
+           ps.setInt(1, i.getAlumano().getIdAlumno());
+           ps.setInt(2, i.getMateria().getIdMateria());
+           ps.setDouble(3, i.getNota());
+           ps.execute();
+           return true;
+       } catch (SQLException e){
+           System.out.println("Error al guardar inscripcion: "+e.toString());
+           return false;
+       }
+           
+   }
+   
+   public List <Inscripcion> obtenerInscripcionesPorAlumno(int id){
+       //crear arraylist
+   }
+   
+   public List <Materia> obtenerMateriasCursadas(int id){
        
    }
    
-   public static List <Inscripcion> obtenerInscripciones(){
+   public List <Materia> obtenerMateriasNOCursadas(int id){
        
    }
    
-   public static List <Inscripcion> obtenerInscripcionesPorAlumno(int id){
+   public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria){
        
    }
    
-   public static List <Materia> obtenerMateriasCursadas(int id){
-       
-   }
    
-   public static List <Materia> obtenerMateriasNOCursadas(int id){
-       
-   }
-   
-   public static void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria){
-       
-   }
-   
-   */
 }
