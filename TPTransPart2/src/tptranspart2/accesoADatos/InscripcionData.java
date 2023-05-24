@@ -82,15 +82,66 @@ public class InscripcionData {
     }
 
     public List<Materia> obtenerMateriasCursadas(int id) {
-        
+        List <Materia> m = new ArrayList<Materia>();
+        try{
+            String sql= "SELECT * FROM materia WHERE id IN (SELECT idMateria FROM cursada WHERE idAlumno=?);";
+            p=c.prepareStatement(sql);
+            p.setInt(1, id);
+            ResultSet r=p.executeQuery();
+            
+            while(r.next()){
+                Materia mat= new Materia();
+                mat.setIdMateria(r.getInt("idMateria"));
+                mat.setNombre(r.getString("nombre"));
+                m.add(mat);
+            }
+        } catch(SQLException e){
+            System.out.println("Error al obtenerMateriasCursadas "+e.toString());
+        } finally {
+            cerrarcyp();
+        }
+        return m;
     }
 
     public List<Materia> obtenerMateriasNOCursadas(int id) {
-        
+        List <Materia> materias = new ArrayList<Materia>();
+        try{
+            String sql = "SELECT * FROM materia WHERE id NOT IN (SELECT idMateria FROM cursada WHERE idAlumno =?);";
+            p = c.prepareStatement(sql);
+            p.setInt(1, id);
+            ResultSet r = p.executeQuery();
+
+            while(r.next()){
+                Materia materia = new Materia();
+                materia.setIdMateria(r.getInt("idMateria"));
+                materia.setNombre(r.getString("nombre"));
+                materias.add(materia);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR en obtenerMateriasNOCursadas(int id)");
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            cerrarcyp();
+        }
+        return materias;
     }
 
     public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+           c = Conexion.getConexion();
         
+        try {
+            p = c.prepareStatement("DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?;");
+            p.setInt(1, idAlumno);
+            p.setInt(2, idMateria);
+            p.execute();
+           
+        } catch (SQLException ex) {
+            System.out.println("borrarInscripcionMateriaAlumno(int idAlumno, int idMateria)");
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
+        }
     }
 
     private static void cerrarcyp() {
