@@ -64,11 +64,7 @@ public class AlumnoData {
                 a.setDni(rs.getInt("dni"));
                 a.setApellido(rs.getString("apellido"));
                 a.setNombre(rs.getString("nombre"));
-                
-                //setFechaNacimiento(LocalDate fechaNacimiento)
-  
-                //a.setFechaNacimiento(rs.getDate("fechaNacimiento"))); PROBLEMA DATE
-                
+                a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
             p.close();
@@ -94,7 +90,7 @@ public class AlumnoData {
                 a.setDni(rs.getInt("dni"));
                 a.setApellido(rs.getString("apellido"));
                 a.setNombre(rs.getString("nombre"));
-                //a.setFechaNacimiento(rs.getDate("fechaNacimiento"))); PROBLEMA DATE
+                a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
             p.close();
@@ -121,7 +117,7 @@ public class AlumnoData {
                 a.setDni(rs.getInt("dni"));
                 a.setApellido(rs.getString("apellido"));
                 a.setNombre(rs.getString("nombre"));
-                //a.setFechaNacimiento(rs.getDate("fechaNacimiento"))); PROBLEMA DATE
+                a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
                 alumnos.add(a);
             }
