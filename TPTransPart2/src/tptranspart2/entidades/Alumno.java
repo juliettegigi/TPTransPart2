@@ -20,8 +20,7 @@ public class Alumno {
     private boolean estado;
     private LocalDate fechaNacimiento;
 
-    Alumno() {
-        
+    public Alumno() {
     }
 
     public Alumno(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {

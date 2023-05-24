@@ -7,7 +7,9 @@ package tptranspart2.accesoADatos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +19,6 @@ import tptranspart2.entidades.Materia;
  *
  * @author julie
  */
-
 public class MateriaData {
 
     private static Connection c;
@@ -51,17 +52,71 @@ public class MateriaData {
         return false;
     }
     
-    /* FALTAN 3 METODOS 
-    
-    public static Materia buscarMateria(int id){  
+    public static List<Materia> listarMaterias(){ 
+       Materia m = null;
+        List<Materia> materias = new ArrayList<>();
+        String query = "SELECT * FROM materia";
+
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                m = new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombre(rs.getString("nombre"));
+                m.setAnio(rs.getInt("anio")); //VER SI FUNCIONA CON EL NOMBRE DEL SQL
+                m.setEstado(rs.getBoolean("estado"));
+                materias.add(m);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            System.out.println("listarMaterias()");
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return materias;
     }
 
-    public static List<Materia> listarMaterias(){  
+    public static Materia buscarMateria(int id){ 
+        Materia m = null;
+        String query = "SELECT * FROM materia WHERE idMateria=?";
+        try {
+            PreparedStatement ps = c.prepareStatement(query);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                m = new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombre(rs.getString("nombre"));
+                m.setAnio(rs.getInt("anio")); //VER SI FUNCIONA CON EL NOMBRE DEL SQL
+                m.setEstado(rs.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex){
+            System.out.println("buscarMateria()");
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return m;
     }
-    
-    public static boolean eliminarMateria (int id) CON DELETE {
+ 
+    public static boolean eliminarMateria(int id) {
+        c = Conexion.getConexion();
+        if (c == null) {
+            return false;
+        }
+        try {
+            p = c.prepareStatement("DELETE materia WHERE idMateria=?");
+            p.setInt(1, id);
+            p.execute();
+
+        } catch (SQLException ex) {
+            System.out.println("eliminarMateria()");
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
+        }
+        return true;
     }
-    */
 
     public static boolean darBajaMaterias(int id) {
         c = Conexion.getConexion();
@@ -72,14 +127,14 @@ public class MateriaData {
             p = c.prepareStatement("UPDATE materia SET estado=false WHERE idMateria=?");
             p.setInt(1, id);
             p.execute();
-            return true;
+
         } catch (SQLException ex) {
             System.out.println("darBajaMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
-        return false;
+        return true;
     }
 
     public static boolean modificarMateria(Materia materia) {
@@ -103,7 +158,6 @@ public class MateriaData {
         }
         return false;
     }
-    
 
     private static void cerrarcyp() {
         try {
