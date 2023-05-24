@@ -42,18 +42,18 @@ public class MateriaData {
         } catch (SQLException ex) {
             System.out.println("guardarMateria(Materia m)");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-
+   
         } finally {
             cerrarcyp();
         }
         return false;
     }
-    
-    public static List<Materia> listarMaterias(){ 
+
+    public static List<Materia> listarMaterias() {
         c = Conexion.getConexion();
-       Materia m = null;
+        Materia m = null;
         List<Materia> materias = new ArrayList<>();
- 
+
         try {
             p = c.prepareStatement("SELECT * FROM materia");
             ResultSet rs = p.executeQuery();
@@ -70,11 +70,13 @@ public class MateriaData {
         } catch (SQLException ex) {
             System.out.println("listarMaterias()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
         }
         return materias;
     }
 
-    public static Materia buscarMateria(int id){ 
+    public static Materia buscarMateria(int id) {
         c = Conexion.getConexion();
         Materia m = null;
         try {
@@ -89,30 +91,30 @@ public class MateriaData {
                 m.setEstado(rs.getBoolean("estado"));
             }
             p.close();
-        } catch (SQLException ex){
-            System.out.println("buscarMateria()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return m;
-    }
- 
-    public static boolean eliminarMateria(int id) {
-        c = Conexion.getConexion();
-        if (c == null) {
-            return false;
-        }
-        try {
-            p = c.prepareStatement("DELETE materia WHERE idMateria=?");
-            p.setInt(1, id);
-            p.execute();
-
         } catch (SQLException ex) {
-            System.out.println("eliminarMateria()");
+            System.out.println("buscarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
-        return true;
+        return m;
+    }
+
+    public static boolean eliminarMateria(int id) {
+        c = Conexion.getConexion();
+        try {
+            p = c.prepareStatement("DELETE materia WHERE idMateria=?");
+            p.setInt(1, id);
+            p.execute();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("eliminarMateria()");
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } finally {
+            cerrarcyp();
+        }
+        return false;
     }
 
     public static boolean darBajaMaterias(int id) {
@@ -124,21 +126,20 @@ public class MateriaData {
             p = c.prepareStatement("UPDATE materia SET estado=false WHERE idMateria=?");
             p.setInt(1, id);
             p.execute();
-
+            return true;
         } catch (SQLException ex) {
             System.out.println("darBajaMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             cerrarcyp();
         }
-        return true;
+        return false;
     }
 
     public static boolean modificarMateria(Materia materia) {
         c = Conexion.getConexion();
-        if (c == null) {
-            return false;
-        }
+
         try {
             p = c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?");
             p.setString(1, materia.getNombre());
@@ -150,6 +151,7 @@ public class MateriaData {
         } catch (SQLException ex) {
             System.out.println("modificarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            
         } finally {
             cerrarcyp();
         }

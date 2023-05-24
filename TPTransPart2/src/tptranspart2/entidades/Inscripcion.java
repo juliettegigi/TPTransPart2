@@ -17,7 +17,6 @@ public class Inscripcion {
     private Materia materia;
 
     public Inscripcion() {
-
     }
 
     public Inscripcion(int idInscripto, Alumno alumno, int nota, Materia materia) {
@@ -56,7 +55,7 @@ public class Inscripcion {
         this.alumno = alumno;
     }
 
-    public void setNota(int nota) {
+    public void setNota(double nota) {
         this.nota = nota;
     }
 
