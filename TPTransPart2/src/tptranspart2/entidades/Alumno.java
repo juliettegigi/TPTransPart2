@@ -23,8 +23,7 @@ public class Alumno {
     public Alumno() {
     }
 
-    public Alumno(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
-        this.idAlumno = idAlumno;
+    public Alumno(int dni, String nombre, String apellido,LocalDate fechaNacimiento, boolean estado) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -32,7 +31,7 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Alumno(int idAlumno, int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento) {
+    public Alumno(int idAlumno, int dni, String nombre, String apellido, LocalDate fechaNacimiento, boolean estado) {
         this.idAlumno = idAlumno;
         this.dni = dni;
         this.nombre = nombre;

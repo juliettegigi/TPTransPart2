@@ -22,16 +22,22 @@ public class TPTransPart2 {
      */
     public static void main(String[] args) {
 
-      
+//------------------INGRESO ALUMNO-----------------
+        AlumnoData.guardarAlumno(new Alumno(111222333, "Apellido1", "nombre1", LocalDate.of(2000, 5, 22), true));
 
-        
-     AlumnoData.guardarAlumno(new Alumno(111222333,"Apellido1","nombre1",LocalDate.of(2000, 5, 22),true));
-        System.out.println(AlumnoData.buscarAlumno(16));
-        System.out.println( AlumnoData.buscarAlumnoPorDni(30986785));
-     
+//------------------BUSCO ALUMNO-------------------
+       System.out.println(AlumnoData.buscarAlumno(3));
+        System.out.println(AlumnoData.buscarAlumnoPorDni(30986785));
+
+//------------------LISTO ALUMNO-------------------
         System.out.println(AlumnoData.listarAlumnos());
-        AlumnoData.darBajaAlumno(2);
-        AlumnoData.eliminarAlumno(16);
-        AlumnoData.modificarAlumno(new Alumno(15,10,"Apellido1","nombre1",LocalDate.of(2000, 5, 22),true));
+        
+//----------------MODIFICO ALUMNO------------------  
+        AlumnoData.modificarAlumno(new Alumno(15, 10, "Apellido1", "nombre1", LocalDate.of(2000, 5, 22), true));
+
+//----------------DAR BAJA ALUMNO------------------
+        AlumnoData.darBajaAlumno(2); //BORRADO LÓGICO
+        //AlumnoData.eliminarAlumno(16); BORRADO DEFINITIVO
+
     }
 }
