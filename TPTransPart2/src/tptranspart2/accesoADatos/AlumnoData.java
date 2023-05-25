@@ -165,7 +165,7 @@ public class AlumnoData {
         c = Conexion.getConexion();
 
         try {
-            p = c.prepareStatement("DELETE alumno WHERE idAlumno=?");
+            p = c.prepareStatement("DELETE FROM alumno WHERE idAlumno=?;");
             p.setInt(1, id);
             p.execute();
             return true;
@@ -183,13 +183,15 @@ public class AlumnoData {
         c = Conexion.getConexion();
 
         try {
-            p = c.prepareStatement("UPDATE alumno SET dni=?,nombre=?,apellido=?,estado=?,fechaNacimiento=? WHERE idAlumno=?");
+            p = c.prepareStatement("UPDATE alumno SET dni=?,apellido=?,nombre=?,fechaNacimiento=?,estado=? WHERE idAlumno=?;");
             p.setInt(1, a.getDni());
-            p.setString(2, a.getNombre());
-            p.setString(3, a.getApellido());
-            p.setBoolean(4, a.isEstado());
-            p.setDate(5, Date.valueOf(a.getFechaNacimiento()));
+            p.setString(2, a.getApellido());
+            p.setString(3, a.getNombre());
+            p.setDate(4, Date.valueOf(a.getFechaNacimiento()));
+            p.setBoolean(5, a.isEstado());
+            p.setInt(6, a.getIdAlumno());
             p.executeUpdate();
+          
             return true;
         } catch (SQLException ex) {
             System.out.println("modificarAlumno()");
