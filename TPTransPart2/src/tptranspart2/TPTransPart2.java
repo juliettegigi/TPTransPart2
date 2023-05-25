@@ -22,10 +22,16 @@ public class TPTransPart2 {
      */
     public static void main(String[] args) {
 
-        //(int dni, String nombre, String apellido, boolean estado, LocalDate fechaNacimiento)
-        //Alumno a = new Alumno(1585289,"Roberto","Gomez",true,LocalDate.of(1985, 5, 5));
-        //AlumnoData alumno = new AlumnoData();
-        //AlumnoData.darBajaAlumno(5);
-        MateriaData.buscarMateria(2);
+      
+
+        
+     AlumnoData.guardarAlumno(new Alumno(111222333,"Apellido1","nombre1",LocalDate.of(2000, 5, 22),true));
+        System.out.println(AlumnoData.buscarAlumno(16));
+        System.out.println( AlumnoData.buscarAlumnoPorDni(30986785));
+     
+        System.out.println(AlumnoData.listarAlumnos());
+        AlumnoData.darBajaAlumno(2);
+        AlumnoData.eliminarAlumno(16);
+        AlumnoData.modificarAlumno(new Alumno(15,10,"Apellido1","nombre1",LocalDate.of(2000, 5, 22),true));
     }
 }
