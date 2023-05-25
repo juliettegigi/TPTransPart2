@@ -21,13 +21,10 @@ public class Conexion {
 
     private static Connection con;
 
-    private Conexion() {
-
-    }
 
     public static Connection getConexion() {
 
-        if (con == null) {
+      
             try {
                 Class.forName("org.mariadb.jdbc.Driver");
                 con = DriverManager.getConnection(URL, USER, PASS);
@@ -39,7 +36,7 @@ public class Conexion {
                 System.out.println("error de conexión");
                 e.printStackTrace();
             }
-        }
+       
 
         return con;// retorno null si no me conecto 
         // sino la conexión
