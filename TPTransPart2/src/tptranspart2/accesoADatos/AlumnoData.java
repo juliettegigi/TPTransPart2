@@ -30,35 +30,40 @@ public class AlumnoData {
 
     public static boolean guardarAlumno(Alumno a) {
         c = Conexion.getConexion();
+     
 
         try {
-            p = c.prepareStatement("INSERT INTO alumno(dni,nombre,apellido,estado,fechaNacimiento) VALUES (?,?,?,?,?);");
+            p = c.prepareStatement("INSERT INTO alumno(dni,apellido,nombre,fechaNacimiento,estado) VALUES (?,?,?,?,?);");
             p.setInt(1, a.getDni());
-            p.setString(2, a.getNombre());
-            p.setString(3, a.getApellido());
-            p.setBoolean(4, a.isEstado());
-            p.setDate(5, Date.valueOf(a.getFechaNacimiento()));
+            p.setString(2, a.getApellido());
+            p.setString(3, a.getNombre());
+            p.setDate(4, Date.valueOf(a.getFechaNacimiento()));
+            p.setBoolean(5, a.isEstado());
             p.execute();
             return true;
             
         } catch (SQLException ex) {
             System.out.println("guardarAlumno ()");
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);  
+            
             
         } finally {
             cerrarcyp();
+            System.out.println("ewqe");
         }
         return false;
     }
 
     public static Alumno buscarAlumno(int id) {
         c = Conexion.getConexion();
+      
         Alumno a = null;
+        ResultSet rs=null;
         try {
-            p = c.prepareStatement("SELECT * FROM alumno WHERE idAlumno=?");
-            p.setInt(1, id);
-            ResultSet rs = p.executeQuery();
-            while (rs.next()) {
+            p=c.prepareStatement("SELECT * FROM alumno WHERE idAlumno=?;");
+           p.setInt(1, id);
+	   rs=p.executeQuery();
+            System.out.println("acaaaaaa");
+            if(rs.next()){
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
                 a.setDni(rs.getInt("dni"));
@@ -67,12 +72,18 @@ public class AlumnoData {
                 a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
-            p.close();
+           
+            
         } catch (SQLException ex){
             System.out.println("buscarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
             cerrarcyp();
+            try {
+                rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return a;
     }
