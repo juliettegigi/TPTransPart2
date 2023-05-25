@@ -77,10 +77,10 @@ public class TPTransPart2 {
         //System.out.println(InscripcionData.obtenerInscripciones());
         
 //------------------------LISTO MATERIAS CURSADAS------------------------
-        //InscripcionData.obtenerMateriasCursadas(3);
+        //System.out.println(InscripcionData.obtenerMateriasCursadas(3));
         
 //----------------------LISTO MATERIAS NO CURSADAS-----------------------
-        //InscripcionData.obtenerMateriasNOCursadas(3);
+        //System.out.println(InscripcionData.obtenerMateriasNOCursadas(3));
         
 //---------------------LISTO INSCRIPCIONES X ALUMNO----------------------
         //for(Inscripcion inscrip:InscripcionData.obtenerInscripcionesPorAlumno(3)){

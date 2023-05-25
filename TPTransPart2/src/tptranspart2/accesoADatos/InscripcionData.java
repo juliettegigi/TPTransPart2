@@ -87,7 +87,7 @@ public class InscripcionData {
         List<Materia> m = new ArrayList<Materia>();
 
         try {
-            String sql = "SELECT * FROM materia WHERE id IN (SELECT idMateria FROM cursada WHERE idAlumno=?);";
+            String sql = "SELECT * FROM materia WHERE idMateria IN (SELECT idMateria FROM inscripcion WHERE idAlumno=?);";
             p = c.prepareStatement(sql);
             p.setInt(1, id);
             ResultSet r = p.executeQuery();
@@ -112,7 +112,7 @@ public class InscripcionData {
         c = Conexion.getConexion();
         List<Materia> materias = new ArrayList<Materia>();
         try {
-            String sql = "SELECT * FROM materia WHERE id NOT IN (SELECT idMateria FROM cursada WHERE idAlumno =?);";
+            String sql = "SELECT * FROM materia WHERE idMateria NOT IN (SELECT idMateria FROM inscripcion WHERE idAlumno =?);";
             p = c.prepareStatement(sql);
             p.setInt(1, id);
             ResultSet r = p.executeQuery();
