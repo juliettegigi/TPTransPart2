@@ -24,6 +24,7 @@ public class TPTransPart2 {
      */
     public static void main(String[] args) {
 
+
 //-----------------------------AGREGO ALUMNO-----------------------------
         //AlumnoData.guardarAlumno(new Alumno(11122233, "Garro", "Juan", LocalDate.of(2000, 5, 22), true));
         
