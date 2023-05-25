@@ -24,6 +24,10 @@ public class TPTransPart2 {
      */
     public static void main(String[] args) {
 
+        for(Inscripcion inscrip:InscripcionData.obtenerInscripcionesPorAlumno(3)){
+           System.out.println(inscrip.getAlumno().getNombre()+" "+inscrip.getMateria().getNombre());
+       }
+       
 //------------------AGREGO ALUMNO------------------
         //AlumnoData.guardarAlumno(new Alumno(11122233, "Garro", "Juan", LocalDate.of(2000, 5, 22), true));
         

@@ -175,7 +175,29 @@ public class InscripcionData {
         return lista;
     }
 
-    //obtenerInscripcionesPorAlumno ()
+    public static List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlum){
+        c=Conexion.getConexion();
+        List<Inscripcion> i= new ArrayList();
+        try{
+            String sql= "SELECT * FROM inscripcion WHERE inscripcion.idAlumno =?";
+            p=c.prepareStatement(sql);
+            p.setInt(1, idAlum);
+            ResultSet resulS=p.executeQuery();
+            while(resulS.next()){
+                Inscripcion ins;
+                Alumno a=AlumnoData.buscarAlumno(idAlum);
+                Materia m=MateriaData.buscarMateria(resulS.getInt("idMateria"));
+                ins=new Inscripcion(resulS.getInt("idInscripto"),a,resulS.getInt("nota"),m);
+                i.add(ins);
+            }
+        } catch(SQLException e){
+            System.out.println("Error al obtenerInscripcionesPorAlumno"+e.toString());
+        } finally{
+            cerrarcyp();
+        }
+        return i;
+    }
+
     
     public static void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
         c = Conexion.getConexion();
