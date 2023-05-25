@@ -31,7 +31,7 @@ public class InscripcionData {
     public InscripcionData() {
     }
 
-    public boolean guardarInscripcion(Inscripcion i) {
+    public static boolean guardarInscripcion(Inscripcion i) {
         String sql = "INSERT INTO inscripcion (idAlumno, idMateria, nota) VALUES (?,?,?)";
         try {
             p = Conexion.getConexion().prepareStatement(sql);
@@ -81,7 +81,7 @@ public class InscripcionData {
         return retorno;
     }
 
-    public List<Materia> obtenerMateriasCursadas(int id) {
+    public static List<Materia> obtenerMateriasCursadas(int id) {
         List <Materia> m = new ArrayList<Materia>();
         try{
             String sql= "SELECT * FROM materia WHERE id IN (SELECT idMateria FROM cursada WHERE idAlumno=?);";
@@ -105,7 +105,7 @@ public class InscripcionData {
         return m;
     }
 
-    public List<Materia> obtenerMateriasNOCursadas(int id) {
+    public static List<Materia> obtenerMateriasNOCursadas(int id) {
         List <Materia> materias = new ArrayList<Materia>();
         try{
             String sql = "SELECT * FROM materia WHERE id NOT IN (SELECT idMateria FROM cursada WHERE idAlumno =?);";
@@ -129,7 +129,7 @@ public class InscripcionData {
         return materias;
     }
 
-    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+    public static void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
            c = Conexion.getConexion();
         
         try {
@@ -145,6 +145,12 @@ public class InscripcionData {
             cerrarcyp();
         }
     }
+    
+    /*
+obtenerInscripcionesPorAlumno
+actualizarNota
+obtenerAlumnosPorMateria
+*/
 
     private static void cerrarcyp() {
         try {

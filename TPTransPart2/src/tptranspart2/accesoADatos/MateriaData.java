@@ -42,7 +42,7 @@ public class MateriaData {
         } catch (SQLException ex) {
             System.out.println("guardarMateria(Materia m)");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-   
+
         } finally {
             cerrarcyp();
         }
@@ -100,17 +100,21 @@ public class MateriaData {
         return m;
     }
 
-    public static boolean eliminarMateria(int id) {
+    public static boolean modificarMateria(Materia materia) {
         c = Conexion.getConexion();
+
         try {
-            p = c.prepareStatement("DELETE materia WHERE idMateria=?");
-            p.setInt(1, id);
-            p.execute();
+            p = c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?");
+            p.setString(1, materia.getNombre());
+            p.setInt(2, materia.getAnio());
+            p.setBoolean(3, materia.isEstado());
+            p.setInt(4, materia.getIdMateria());
+            p.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("eliminarMateria()");
+            System.out.println("modificarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         } finally {
             cerrarcyp();
         }
@@ -130,28 +134,24 @@ public class MateriaData {
         } catch (SQLException ex) {
             System.out.println("darBajaMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         } finally {
             cerrarcyp();
         }
         return false;
     }
 
-    public static boolean modificarMateria(Materia materia) {
+    public static boolean eliminarMateria(int id) {
         c = Conexion.getConexion();
-
         try {
-            p = c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?");
-            p.setString(1, materia.getNombre());
-            p.setInt(2, materia.getAnio());
-            p.setBoolean(3, materia.isEstado());
-            p.setInt(4, materia.getIdMateria());
-            p.executeUpdate();
+            p = c.prepareStatement("DELETE FROM materia WHERE idMateria=?");
+            p.setInt(1, id);
+            p.execute();
             return true;
         } catch (SQLException ex) {
-            System.out.println("modificarMateria()");
+            System.out.println("eliminarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         } finally {
             cerrarcyp();
         }

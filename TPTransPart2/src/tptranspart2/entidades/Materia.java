@@ -64,4 +64,11 @@ public class Materia {
     public void setAnio(int anio) {
         this.anio = anio;
     }
+
+    @Override
+    public String toString() {
+        return "ID:" + idMateria + " |Nombre:" + nombre + " |Año:" + anio + " |Estado=" + estado+"\n";
+    }
+    
+    
 }

@@ -30,7 +30,6 @@ public class AlumnoData {
 
     public static boolean guardarAlumno(Alumno a) {
         c = Conexion.getConexion();
-     
 
         try {
             p = c.prepareStatement("INSERT INTO alumno(dni,apellido,nombre,fechaNacimiento,estado) VALUES (?,?,?,?,?);");
@@ -41,11 +40,10 @@ public class AlumnoData {
             p.setBoolean(5, a.isEstado());
             p.execute();
             return true;
-            
+
         } catch (SQLException ex) {
             System.out.println("guardarAlumno ()");
-            
-            
+
         } finally {
             cerrarcyp();
             System.out.println("ewqe");
@@ -55,15 +53,15 @@ public class AlumnoData {
 
     public static Alumno buscarAlumno(int id) {
         c = Conexion.getConexion();
-      
+
         Alumno a = null;
-        ResultSet rs=null;
+        ResultSet rs = null;
         try {
-            p=c.prepareStatement("SELECT * FROM alumno WHERE idAlumno=?;");
-           p.setInt(1, id);
-	   rs=p.executeQuery();
+            p = c.prepareStatement("SELECT * FROM alumno WHERE idAlumno=?;");
+            p.setInt(1, id);
+            rs = p.executeQuery();
             System.out.println("acaaaaaa");
-            if(rs.next()){
+            if (rs.next()) {
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
                 a.setDni(rs.getInt("dni"));
@@ -72,12 +70,11 @@ public class AlumnoData {
                 a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));
             }
-           
-            
-        } catch (SQLException ex){
+
+        } catch (SQLException ex) {
             System.out.println("buscarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             cerrarcyp();
             try {
                 rs.close();
@@ -87,8 +84,8 @@ public class AlumnoData {
         }
         return a;
     }
-    
-    public static Alumno buscarAlumnoPorDni(int dni){
+
+    public static Alumno buscarAlumnoPorDni(int dni) {
         c = Conexion.getConexion();
         Alumno a = null;
         try {
@@ -105,10 +102,10 @@ public class AlumnoData {
                 a.setEstado(rs.getBoolean("estado"));
             }
             p.close();
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("buscarAlumnoPorDni()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
+        } finally {
             cerrarcyp();
         }
         return a;
@@ -116,7 +113,7 @@ public class AlumnoData {
 
     public static List<Alumno> listarAlumnos() {
         c = Conexion.getConexion();
-        
+
         Alumno a = null;
         List<Alumno> alumnos = new ArrayList<>();
         try {
@@ -143,42 +140,6 @@ public class AlumnoData {
         return alumnos;
     }
 
-    public static boolean darBajaAlumno(int id) {
-        c = Conexion.getConexion();
-
-        try {
-            p = c.prepareStatement("UPDATE alumno SET estado=false WHERE idAlumno=?");
-            p.setInt(1, id);
-            p.execute();
-            return true;
-            
-        } catch (SQLException ex) {
-            System.out.println("darBajaAlumno()");
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            cerrarcyp();
-        }
-        return false;
-    }
-    
-    public static boolean eliminarAlumno (int id){
-        c = Conexion.getConexion();
-
-        try {
-            p = c.prepareStatement("DELETE FROM alumno WHERE idAlumno=?;");
-            p.setInt(1, id);
-            p.execute();
-            return true;
-        } catch (SQLException ex) {
-            System.out.println("eliminarAlumno()");
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-            
-        } finally {
-            cerrarcyp();
-        }
-        return false;
-    }
-
     public static boolean modificarAlumno(Alumno a) {
         c = Conexion.getConexion();
 
@@ -191,12 +152,48 @@ public class AlumnoData {
             p.setBoolean(5, a.isEstado());
             p.setInt(6, a.getIdAlumno());
             p.executeUpdate();
-          
+
             return true;
         } catch (SQLException ex) {
             System.out.println("modificarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-            
+
+        } finally {
+            cerrarcyp();
+        }
+        return false;
+    }
+
+    public static boolean darBajaAlumno(int id) {
+        c = Conexion.getConexion();
+
+        try {
+            p = c.prepareStatement("UPDATE alumno SET estado=false WHERE idAlumno=?");
+            p.setInt(1, id);
+            p.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("darBajaAlumno()");
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
+        }
+        return false;
+    }
+
+    public static boolean eliminarAlumno(int id) {
+        c = Conexion.getConexion();
+
+        try {
+            p = c.prepareStatement("DELETE FROM alumno WHERE idAlumno=?;");
+            p.setInt(1, id);
+            p.execute();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println("eliminarAlumno()");
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally {
             cerrarcyp();
         }
