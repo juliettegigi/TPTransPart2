@@ -32,6 +32,7 @@ public class InscripcionData {
     }
 
     public static boolean guardarInscripcion(Inscripcion i) {
+        c = Conexion.getConexion();
         String sql = "INSERT INTO inscripcion (idAlumno, idMateria, nota) VALUES (?,?,?)";
         try {
             p = Conexion.getConexion().prepareStatement(sql);
@@ -41,14 +42,14 @@ public class InscripcionData {
             p.execute();
             return true;
         } catch (SQLException e) {
-            System.out.println("Error al guardar inscripcion: " + e.toString());
+            System.out.println("ERROR en guardarInscripcion()");
             return false;
         }
     }
 
     public static List<Inscripcion> obtenerInscripciones() {
-        List<Inscripcion> retorno = new ArrayList();
         c = Conexion.getConexion();
+        List<Inscripcion> retorno = new ArrayList();
 
         try {
             p = c.prepareStatement("SELECT * FROM inscripcion;");
@@ -71,7 +72,7 @@ public class InscripcionData {
             }
 
         } catch (SQLException ex) {
-            System.out.println("updateInscripcion(Inscripcion ins)");
+            System.out.println("ERROR en obtenerInscripcion()");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
@@ -82,21 +83,23 @@ public class InscripcionData {
     }
 
     public static List<Materia> obtenerMateriasCursadas(int id) {
-        List <Materia> m = new ArrayList<Materia>();
-        try{
-            String sql= "SELECT * FROM materia WHERE id IN (SELECT idMateria FROM cursada WHERE idAlumno=?);";
-            p=c.prepareStatement(sql);
+        c = Conexion.getConexion();
+        List<Materia> m = new ArrayList<Materia>();
+
+        try {
+            String sql = "SELECT * FROM materia WHERE id IN (SELECT idMateria FROM cursada WHERE idAlumno=?);";
+            p = c.prepareStatement(sql);
             p.setInt(1, id);
-            ResultSet r=p.executeQuery();
-            
-            while(r.next()){
-                Materia mat= new Materia();
+            ResultSet r = p.executeQuery();
+
+            while (r.next()) {
+                Materia mat = new Materia();
                 mat.setIdMateria(r.getInt("idMateria"));
                 mat.setNombre(r.getString("nombre"));
                 m.add(mat);
             }
-        } catch(SQLException ex){
-            System.out.println("Error al obtenerMateriasCursadas "+ex.toString());
+        } catch (SQLException ex) {
+            System.out.println("ERROR en obtenerMateriasCursadas " + ex.toString());
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
@@ -106,14 +109,15 @@ public class InscripcionData {
     }
 
     public static List<Materia> obtenerMateriasNOCursadas(int id) {
-        List <Materia> materias = new ArrayList<Materia>();
-        try{
+        c = Conexion.getConexion();
+        List<Materia> materias = new ArrayList<Materia>();
+        try {
             String sql = "SELECT * FROM materia WHERE id NOT IN (SELECT idMateria FROM cursada WHERE idAlumno =?);";
             p = c.prepareStatement(sql);
             p.setInt(1, id);
             ResultSet r = p.executeQuery();
 
-            while(r.next()){
+            while (r.next()) {
                 Materia materia = new Materia();
                 materia.setIdMateria(r.getInt("idMateria"));
                 materia.setNombre(r.getString("nombre"));
@@ -129,28 +133,66 @@ public class InscripcionData {
         return materias;
     }
 
-    public static void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
-           c = Conexion.getConexion();
-        
+    public static void actualizarNota(int idAlumno, int idMateria, int nota) {
+        c = Conexion.getConexion();
         try {
-            p = c.prepareStatement("DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?;");
-            p.setInt(1, idAlumno);
-            p.setInt(2, idMateria);
+            p = c.prepareStatement("UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?;");
+            p.setInt(1, nota);
+            p.setInt(2, idAlumno);
+            p.setInt(3, idMateria);
             p.execute();
-           
+
         } catch (SQLException ex) {
-            System.out.println("borrarInscripcionMateriaAlumno(int idAlumno, int idMateria)");
+            System.out.println("ERROR en actualizarNota()");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
     }
+
+    public static List<Alumno> obtenerAlumnosPorMateria(int idMateria) {
+        c = Conexion.getConexion();
+        List<Alumno> lista = new ArrayList();
+        try {
+            p = c.prepareStatement("SELECT inscripcion.idalumno\n"
+                    + "FROM materia,alumno,inscripcion\n"
+                    + "WHERE inscripcion.idAlumno = alumno.idAlumno \n"
+                    + "AND inscripcion.idMateria=materia.idMateria\n"
+                    + "AND materia.idMateria=?;");
+            p.setInt(1, idMateria);
+            ResultSet rs = p.executeQuery();
+            while (rs.next()) {
+                Alumno a = AlumnoData.buscarAlumno(rs.getInt("idAlumno"));
+                lista.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR en obtenerAlumnosPorMateria()");
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
+        }
+
+        return lista;
+    }
+
+    //obtenerInscripcionesPorAlumno ()
     
-    /*
-obtenerInscripcionesPorAlumno
-actualizarNota
-obtenerAlumnosPorMateria
-*/
+    public static void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+        c = Conexion.getConexion();
+
+        try {
+            p = c.prepareStatement("DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?;");
+            p.setInt(1, idAlumno);
+            p.setInt(2, idMateria);
+            p.execute();
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR en borrarInscripcionMateriaAlumno()");
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
+        }
+    }
 
     private static void cerrarcyp() {
         try {
