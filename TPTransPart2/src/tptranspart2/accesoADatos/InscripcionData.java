@@ -96,6 +96,8 @@ public class InscripcionData {
                 Materia mat = new Materia();
                 mat.setIdMateria(r.getInt("idMateria"));
                 mat.setNombre(r.getString("nombre"));
+                mat.setAnio(r.getInt("año"));
+                mat.setEstado(r.getBoolean("estado"));
                 m.add(mat);
             }
         } catch (SQLException ex) {
@@ -121,6 +123,8 @@ public class InscripcionData {
                 Materia materia = new Materia();
                 materia.setIdMateria(r.getInt("idMateria"));
                 materia.setNombre(r.getString("nombre"));
+                materia.setAnio(r.getInt("año"));
+                materia.setEstado(r.getBoolean("estado"));
                 materias.add(materia);
             }
         } catch (SQLException ex) {
