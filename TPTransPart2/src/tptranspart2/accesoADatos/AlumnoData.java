@@ -60,7 +60,6 @@ public class AlumnoData {
             p = c.prepareStatement("SELECT * FROM alumno WHERE idAlumno=?;");
             p.setInt(1, id);
             rs = p.executeQuery();
-            System.out.println("acaaaaaa");
             if (rs.next()) {
                 a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
