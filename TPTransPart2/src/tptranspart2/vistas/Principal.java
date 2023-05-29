@@ -74,6 +74,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu2.setText("Materias");
 
         MIFormMateria.setText("Formulario de materia");
+        MIFormMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MIFormMateriaActionPerformed(evt);
+            }
+        });
         jMenu2.add(MIFormMateria);
 
         jMenuBar1.add(jMenu2);
@@ -93,6 +98,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.setText("Inscripciones");
 
         MIManejoInscripciones.setText("Manejo de inscripciones");
+        MIManejoInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MIManejoInscripcionesActionPerformed(evt);
+            }
+        });
         jMenu4.add(MIManejoInscripciones);
 
         jMenuBar1.add(jMenu4);
@@ -100,6 +110,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu5.setText("Carga de notas");
 
         MIManipulacionNotas.setText("Manipulacion de notas");
+        MIManipulacionNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MIManipulacionNotasActionPerformed(evt);
+            }
+        });
         jMenu5.add(MIManipulacionNotas);
 
         jMenuBar1.add(jMenu5);
@@ -131,6 +146,10 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+
+    
+    
     private void MIFormAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIFormAlumnoActionPerformed
         escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
         escritorio.repaint();//dibuja todo de nuevo
@@ -140,6 +159,33 @@ public class Principal extends javax.swing.JFrame {
         escritorio.moveToFront(alumnosView);
         
     }//GEN-LAST:event_MIFormAlumnoActionPerformed
+
+    private void MIFormMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIFormMateriaActionPerformed
+        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
+        escritorio.repaint();//dibuja todo de nuevo
+        MateriasView materiasView=new MateriasView();
+        materiasView.setVisible(true);
+        escritorio.add(materiasView);
+        escritorio.moveToFront(materiasView);
+    }//GEN-LAST:event_MIFormMateriaActionPerformed
+
+    private void MIManejoInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIManejoInscripcionesActionPerformed
+        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
+        escritorio.repaint();//dibuja todo de nuevo
+        ManejoInscripcionesView manejoInscripcionesView=new ManejoInscripcionesView();
+        manejoInscripcionesView.setVisible(true);
+        escritorio.add( manejoInscripcionesView);
+        escritorio.moveToFront(manejoInscripcionesView);
+    }//GEN-LAST:event_MIManejoInscripcionesActionPerformed
+
+    private void MIManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIManipulacionNotasActionPerformed
+        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
+        escritorio.repaint();//dibuja todo de nuevo
+        ManipulacionDeNotasView manipulacionDeNotasView=new ManipulacionDeNotasView();
+        manipulacionDeNotasView.setVisible(true);
+        escritorio.add( manipulacionDeNotasView);
+        escritorio.moveToFront(manipulacionDeNotasView);
+    }//GEN-LAST:event_MIManipulacionNotasActionPerformed
 
     /**
      * @param args the command line arguments
