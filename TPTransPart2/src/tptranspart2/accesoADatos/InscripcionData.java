@@ -179,7 +179,7 @@ public class InscripcionData {
         return lista;
     }
 
-    public static List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlum){
+    public List<Inscripcion> obtenerInscripcionesPorAlumno(int idAlum){
         c=Conexion.getConexion();
         List<Inscripcion> i= new ArrayList();
         try{

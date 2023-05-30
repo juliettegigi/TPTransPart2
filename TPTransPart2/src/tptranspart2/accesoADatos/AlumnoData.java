@@ -110,7 +110,7 @@ public class AlumnoData {
         return a;
     }
 
-    public static List<Alumno> listarAlumnos() {
+    public List<Alumno> listarAlumnos() {
         c = Conexion.getConexion();
 
         Alumno a = null;
