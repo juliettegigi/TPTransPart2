@@ -21,13 +21,15 @@ import tptranspart2.entidades.Materia;
  */
 public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
-    
+    private ArrayList<Alumno> listaAlumnos;
     /**
      * Creates new form ManejoInscripcionesView
      */
     public ManejoInscripcionesView() {
         initComponents();
         modelo=new DefaultTableModel();
+        listaAlumnos=(ArrayList<Alumno>) AlumnoData.listarAlumnos();
+        cargarAlumnos();
         llenarColumna();
         llenarTabla();
     }
@@ -249,6 +251,14 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
             InscripcionData.borrarInscripcionMateriaAlumno(id, m.getIdMateria());
         }
     }//GEN-LAST:event_jbAnularActionPerformed
+    
+    
+    private void cargarAlumnos(){
+          for(Alumno item:listaAlumnos)
+            jComboBoxAlumnos.addItem(item);
+    }
+    
+    
     private void llenarColumna(){
            ArrayList<Object> columna=new ArrayList<>();
            columna.add("ID");
