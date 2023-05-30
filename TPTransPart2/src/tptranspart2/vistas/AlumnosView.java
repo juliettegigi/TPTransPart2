@@ -23,12 +23,10 @@ public class AlumnosView extends javax.swing.JInternalFrame {
 
     
     /*necesito acceso a la conexión y usar */
-    private Connection conexion;
+   
     
     public AlumnosView() {
         initComponents();
-    
-        conexion=Conexion.getConexion();
     }
 
     /**
