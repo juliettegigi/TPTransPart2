@@ -25,6 +25,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
      */
     public ManejoInscripcionesView() {
         initComponents();
+        modelo=new DefaultTableModel();
         llenarColumna();
         llenarTabla();
     }
