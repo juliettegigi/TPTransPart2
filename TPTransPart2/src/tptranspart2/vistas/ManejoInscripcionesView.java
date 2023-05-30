@@ -7,6 +7,7 @@ package tptranspart2.vistas;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import tptranspart2.accesoADatos.AlumnoData;
 import tptranspart2.accesoADatos.InscripcionData;
@@ -169,20 +170,20 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(jComboBoxAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(174, 174, 174)
                         .addComponent(jbInscribir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
                         .addComponent(jbAnular)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 6, Short.MAX_VALUE)
@@ -204,10 +205,10 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbInscribir)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonSalir)
-                        .addComponent(jbAnular)))
+                        .addComponent(jbInscribir)
+                        .addComponent(jbAnular))
+                    .addComponent(jButtonSalir))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -230,15 +231,27 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
         // boton Inscribir
-        if(jTableT.getSelectedRow()!=-1){
-            int id=(int) jTableT.getValueAt(jTableT.getSelectedRow(), 0);
-            Alumno alum=(Alumno) jTableT.getValueAt(jTableT.getSelectedRow(), 1);
-            Materia m=(Materia) jTableT.getValueAt(jTableT.getSelectedRow(), 2);
-            Inscripcion i=new Inscripcion(id, alum,0, m);
-            
-            InscripcionData.guardarInscripcion(i);
-        }
         
+        //ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
+        int fila=jTableT.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(this,"Tiene que seleccionar una materia");
+            return;
+        }
+            
+        Materia m=new Materia();
+        // cargo en una variable todos los datos de la materia seleccionada
+        m.setIdMateria((int) jTableT.getValueAt(fila, 0));
+        m.setNombre((String) jTableT.getValueAt(fila, 1));
+        m.setAnio((int) jTableT.getValueAt(fila, 2));
+        m.setEstado(true);
+        System.out.println(m);
+        
+        // public Inscripcion(Alumno alumno, int nota, Materia materia)
+        Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
+        Inscripcion i=new Inscripcion(a,-1,m);
+        //ahora inscribo, tengo q pasarle una inscripción
+        InscripcionData.guardarInscripcion(i);
     }//GEN-LAST:event_jbInscribirActionPerformed
 
     private void jbAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularActionPerformed
@@ -258,6 +271,9 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         ArrayList<Materia> listaMaterias=(ArrayList<Materia>) InscripcionData.obtenerMateriasCursadas(a.getIdAlumno());
         //las muestro en la tablas
         llenarTabla(listaMaterias);
+        // deshabilito el botón "inscribir"
+        jbAnular.setEnabled(true);
+        jbInscribir.setEnabled(false);
     }//GEN-LAST:event_jRadioButtonInsActionPerformed
 
     private void jRadioButtonNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNoInsActionPerformed
@@ -267,6 +283,9 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         ArrayList<Materia> listaMaterias=(ArrayList<Materia>) InscripcionData.obtenerMateriasNOCursadas(a.getIdAlumno());
         //las muestro en la tablas
         llenarTabla(listaMaterias);
+        // deshabilito el botón "anular inscripción"
+        jbAnular.setEnabled(false);
+        jbInscribir.setEnabled(true);
     }//GEN-LAST:event_jRadioButtonNoInsActionPerformed
     
     
@@ -281,8 +300,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     private void armarCabeceraTabla(){
            ArrayList<Object> columna=new ArrayList<>();
            columna.add("ID");
-           columna.add("Alumno");
-           columna.add("Materia");
+           columna.add("Nombre");
            columna.add("Año");
 
            for(Object it:columna){
