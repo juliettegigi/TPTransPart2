@@ -216,7 +216,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
            ArrayList<Object> columna=new ArrayList<>();
            columna.add("ID");
            columna.add("Alumno");
-           columna.add("Nota");
+           columna.add("Estado");
 
            for(Object it:columna){
                modelo.addColumn(it);
