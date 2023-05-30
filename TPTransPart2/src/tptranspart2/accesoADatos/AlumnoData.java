@@ -139,6 +139,36 @@ public class AlumnoData {
         return alumnos;
     }
 
+        public static List<Alumno> listarAlumnosActivos() {
+        c = Conexion.getConexion();
+
+        Alumno a = null;
+        List<Alumno> alumnos = new ArrayList<>();
+        try {
+            p = c.prepareStatement("SELECT * FROM alumno WHERE estado=true");
+            ResultSet rs = p.executeQuery();
+            while (rs.next()) {
+                a = new Alumno();
+                a.setIdAlumno(rs.getInt("idAlumno"));
+                a.setDni(rs.getInt("dni"));
+                a.setApellido(rs.getString("apellido"));
+                a.setNombre(rs.getString("nombre"));
+                a.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                a.setEstado(rs.getBoolean("estado"));
+                alumnos.add(a);
+            }
+            p.close();
+
+        } catch (SQLException ex) {
+            System.out.println("listarAlumnos()");
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarcyp();
+        }
+        return alumnos;
+    }
+    
+    
     public static boolean modificarAlumno(Alumno a) {
         c = Conexion.getConexion();
 

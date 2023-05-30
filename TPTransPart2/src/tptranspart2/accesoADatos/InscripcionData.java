@@ -82,6 +82,8 @@ public class InscripcionData {
         return retorno;
     }
 
+    
+    // INGRESA EL ID DE UN ALUMNO Y RETORNO LAS MATERIAS CURSADAS POR ESE ALUMNO
     public static List<Materia> obtenerMateriasCursadas(int id) {
         c = Conexion.getConexion();
         List<Materia> m = new ArrayList<Materia>();
