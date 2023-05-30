@@ -240,9 +240,7 @@ public class AlumnosView extends javax.swing.JInternalFrame {
            int dni=Integer.parseInt(jtDni.getText());
            Alumno alumno=new Alumno(dni,nombre,apellido, fechaLocalDate,activo);
            AlumnoData.modificarAlumno(alumno); 
-       }
-           
-       
+       }  
     }//GEN-LAST:event_btActualizarActionPerformed
 
     private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarActionPerformed
