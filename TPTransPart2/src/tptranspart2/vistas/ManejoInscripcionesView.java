@@ -256,12 +256,25 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
 
     private void jbAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularActionPerformed
         // boton Anular Inscripcion
-        if(jTableT.getSelectedRow()!=-1){
-            int id=(int) jTableT.getValueAt(jTableT.getSelectedRow(), 0);
-            Materia m=(Materia) jTableT.getValueAt(jTableT.getSelectedRow(), 2);
-            
-            InscripcionData.borrarInscripcionMateriaAlumno(id, m.getIdMateria());
+        
+        ////ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
+          int fila=jTableT.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(this,"Tiene que seleccionar una materia");
+            return;
         }
+        
+        //tengo que eliminar la inscripcion
+        // tengo que usar esto:  borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) 
+        
+        // obtengo el alumno del combobox
+        int ida =((Alumno)jComboBoxAlumnos.getSelectedItem()).getIdAlumno();
+        //obtengo el id de la mteria seleccionada en la tabla
+        int idm=(int) jTableT.getValueAt(fila, 0);
+        
+        InscripcionData.borrarInscripcionMateriaAlumno(ida, idm);
+              
+      
     }//GEN-LAST:event_jbAnularActionPerformed
 
     private void jRadioButtonInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInsActionPerformed
