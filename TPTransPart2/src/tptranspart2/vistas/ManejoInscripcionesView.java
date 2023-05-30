@@ -230,9 +230,9 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         if(elegida!=null){
             for(Alumno a:ad.listarAlumnos()){
                 if(a.isEstado()==true){
-                    modelo.addRow(new Object[](a.getIdAlumno(),a.getApellido(),a.isEstado()));
+                    modelo.addRow(new Object[]{a.getIdAlumno(),a.getApellido(),a.isEstado()});
                 } else{
-                    modelo.addRow(new Object[](a.getIdAlumno(),a.getApellido(),a.isEstado()));
+                    modelo.addRow(new Object[]{a.getIdAlumno(),a.getApellido(),a.isEstado()});
                 }
             }
         }
