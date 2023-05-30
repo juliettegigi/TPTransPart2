@@ -65,9 +65,19 @@ public class MateriasView extends javax.swing.JInternalFrame {
 
         btBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btBuscar.setText("Buscar");
+        btBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBuscarActionPerformed(evt);
+            }
+        });
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btGuardar.setText("Guardar");
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
 
         btBorrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btBorrar.setText("Borrar");
@@ -79,9 +89,19 @@ public class MateriasView extends javax.swing.JInternalFrame {
 
         btActualizar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btActualizar.setText("Actualizar");
+        btActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btActualizarActionPerformed(evt);
+            }
+        });
 
         btLimpiar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btLimpiar.setText("Limpiar");
+        btLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,16 +174,6 @@ public class MateriasView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {
-        //  ejecutar el guardar materia
-        String nombre = tfNombre.getText();
-        int anio = Integer.parseInt(tfAnio.getText());
-        boolean estado = cbxEstado.isEnabled();//me retorna true si está activado
-        //(String nombre, int anio, boolean estado)
-        Materia materia = new Materia(nombre, anio, estado);
-        MateriaData.guardarMateria(materia);
-        tfCodigo.setText(materia.getIdMateria() + "");
-    }
 
     private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
         if (MateriaData.darBajaMaterias(Integer.parseInt(tfCodigo.getText()))) {
@@ -173,7 +183,30 @@ public class MateriasView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btBorrarActionPerformed
 
-    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
+          Materia m = MateriaData.buscarMateria(Integer.parseInt(tfCodigo.getText()));
+        if (m == null) {
+            JOptionPane.showMessageDialog(this, "La materia con ID: " + tfCodigo.getText() + " no existe en nuestro registro");
+        } else {
+            tfCodigo.setText(m.getIdMateria()+"");
+            tfNombre.setText(m.getNombre());
+            tfAnio.setText(m.getAnio()+"");
+            cbxEstado.setSelected(m.isEstado());
+        }
+    }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+        //  ejecutar el guardar materia
+        String nombre = tfNombre.getText();
+        int anio = Integer.parseInt(tfAnio.getText());
+        boolean estado = cbxEstado.isEnabled();//me retorna true si está activado
+        //(String nombre, int anio, boolean estado)
+        Materia materia = new Materia(nombre, anio, estado);
+        MateriaData.guardarMateria(materia);
+        tfCodigo.setText(materia.getIdMateria() + "");
+    }//GEN-LAST:event_btGuardarActionPerformed
+
+    private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
         if (tfCodigo.getText() != null) {
             String nombre = tfNombre.getText();
             int anio = Integer.parseInt(tfAnio.getText());
@@ -181,27 +214,15 @@ public class MateriasView extends javax.swing.JInternalFrame {
             Materia materia = new Materia(nombre, anio, estado);
             MateriaData.modificarMateria(materia);
         }
-    }
+    }//GEN-LAST:event_btActualizarActionPerformed
 
-    private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarActionPerformed
         tfCodigo.setText("");
         tfNombre.setText("");
         tfAnio.setText("");
         cbxEstado.setEnabled(false);
-    }
+    }//GEN-LAST:event_btLimpiarActionPerformed
 
-    private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {
-        Materia m = MateriaData.buscarMateria(Integer.parseInt(tfCodigo.getText()));
-        if (m == null) {
-            JOptionPane.showMessageDialog(this, "La materia con ID: " + tfCodigo.getText() + " no existe en nuestro registro");
-        } else {
-            tfCodigo.setText(m.getIdMateria()+"");
-            tfNombre.setText(m.getNombre());
-            tfAnio.setText(m.getAnio()+"");
-            cbxEstado.setEnabled(m.isEstado());
-        }
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btActualizar;
