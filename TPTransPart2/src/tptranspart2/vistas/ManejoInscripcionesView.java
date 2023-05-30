@@ -92,10 +92,10 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
 
         jTableT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {}
+                {null, null, null}
             },
             new String [] {
-
+                "Title 1", "Title 2", "Title 3"
             }
         ));
         jScrollPane1.setViewportView(jTableT);
@@ -197,8 +197,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
    
     private void jComboBoxAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosActionPerformed
         //lista de alumnos
-        AlumnoData ad= new AlumnoData();
-       for (Alumno a:ad.listarAlumnos()){
+       for (Alumno a:AlumnoData.listarAlumnos()){
            jComboBoxAlumnos.addItem(a);
        }
     }//GEN-LAST:event_jComboBoxAlumnosActionPerformed
@@ -226,9 +225,8 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     private void llenarTabla(){
         borrarFilas();
         Alumno elegida=(Alumno)jComboBoxAlumnos.getSelectedItem();
-        AlumnoData ad=new AlumnoData();
         if(elegida!=null){
-            for(Alumno a:ad.listarAlumnos()){
+            for(Alumno a:AlumnoData.listarAlumnos()){
                 if(a.isEstado()==true){
                     modelo.addRow(new Object[]{a.getIdAlumno(),a.getApellido(),a.isEstado()});
                 } else{
@@ -236,7 +234,6 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
                 }
             }
         }
-        
     }
     public void borrarFilas(){
         int a=modelo.getRowCount()-1;
