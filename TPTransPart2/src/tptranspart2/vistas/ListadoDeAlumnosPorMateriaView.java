@@ -145,6 +145,7 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
         for(Inscripcion m:listaInscripcion){
             if(m.getMateria().getIdMateria()==mat.getIdMateria())
                  modelo.addRow(new Object[]{m.getAlumno().getIdAlumno(),m.getAlumno().getNombre(),m.getNota()});// agrego una fila compuesta por estos 3 elementos
+                
         }
         
     }
