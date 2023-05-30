@@ -215,7 +215,9 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     private void jComboBoxAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosActionPerformed
         //lista de alumnos
        for (Alumno a:AlumnoData.listarAlumnos()){
-           jComboBoxAlumnos.addItem(a);
+           String idAlumno=String.valueOf(a.getIdAlumno());
+           jComboBoxAlumnos.addItem(idAlumno+" "+a.getNombre());
+           
        }
     }//GEN-LAST:event_jComboBoxAlumnosActionPerformed
 
@@ -295,7 +297,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalir;
-    private javax.swing.JComboBox<Alumno> jComboBoxAlumnos;
+    private javax.swing.JComboBox<String> jComboBoxAlumnos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
