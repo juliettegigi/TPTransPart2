@@ -243,9 +243,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         // boton Anular Inscripcion
         if(jTableT.getSelectedRow()!=-1){
             int id=(int) jTableT.getValueAt(jTableT.getSelectedRow(), 0);
-            Alumno alum=(Alumno) jTableT.getValueAt(jTableT.getSelectedRow(), 1);
             Materia m=(Materia) jTableT.getValueAt(jTableT.getSelectedRow(), 2);
-            Inscripcion i=new Inscripcion(id, alum,0, m);
             
             InscripcionData.borrarInscripcionMateriaAlumno(id, m.getIdMateria());
         }
