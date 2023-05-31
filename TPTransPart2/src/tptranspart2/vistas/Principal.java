@@ -67,6 +67,11 @@ public class Principal extends javax.swing.JFrame {
         MArchivo.setText("Archivo");
 
         MISalir.setText("Salir");
+        MISalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MISalirActionPerformed(evt);
+            }
+        });
         MArchivo.add(MISalir);
 
         jMenuBar1.add(MArchivo);
@@ -210,6 +215,10 @@ public class Principal extends javax.swing.JFrame {
     private void MConsultaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_MConsultaAncestorMoved
         // TODO add your handling code here:
     }//GEN-LAST:event_MConsultaAncestorMoved
+
+    private void MISalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MISalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_MISalirActionPerformed
 
     /**
      * @param args the command line arguments
