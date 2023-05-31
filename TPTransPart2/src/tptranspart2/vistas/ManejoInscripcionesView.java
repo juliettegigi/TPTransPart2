@@ -252,6 +252,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         Inscripcion i=new Inscripcion(a,-1,m);
         //ahora inscribo, tengo q pasarle una inscripción
         InscripcionData.guardarInscripcion(i);
+        borrarFilas();
     }//GEN-LAST:event_jbInscribirActionPerformed
 
     private void jbAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularActionPerformed
@@ -273,7 +274,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         int idm=(int) jTableT.getValueAt(fila, 0);
         
         InscripcionData.borrarInscripcionMateriaAlumno(ida, idm);
-              
+        borrarFilas();      
       
     }//GEN-LAST:event_jbAnularActionPerformed
 
