@@ -39,6 +39,7 @@ public class AlumnoData {
             p.setDate(4, Date.valueOf(a.getFechaNacimiento()));
             p.setBoolean(5, a.isEstado());
             p.execute();
+            obtenerIdGenerado(a);
             return true;
 
         } catch (SQLException ex) {
@@ -172,7 +173,7 @@ public class AlumnoData {
     public static boolean modificarAlumno(Alumno a) {
         c = Conexion.getConexion();
 
-        try {
+        try {System.out.println(a);
             p = c.prepareStatement("UPDATE alumno SET dni=?,apellido=?,nombre=?,fechaNacimiento=?,estado=? WHERE idAlumno=?;");
             p.setInt(1, a.getDni());
             p.setString(2, a.getApellido());
@@ -242,4 +243,24 @@ public class AlumnoData {
         }
     }
 
+        private static void obtenerIdGenerado(Alumno m){
+        c = Conexion.getConexion();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT MAX(idAlumno) FROM alumno");
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+               int idGenerado = resultSet.getInt(1);
+               m.setIdAlumno(idGenerado);
+                
+               
+               ps.close();
+               resultSet.close();
+}
+        } catch (SQLException ex) {
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    }
+    
+    
 }

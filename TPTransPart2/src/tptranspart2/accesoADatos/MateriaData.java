@@ -84,7 +84,7 @@ public class MateriaData {
         c = Conexion.getConexion();
         Materia m = null;
         try { //SELECT * FROM materia WHERE idMateria=5 AND estado=1;
-            p = c.prepareStatement("SELECT * FROM materia WHERE idMateria=? AND estado=1;");
+            p = c.prepareStatement("SELECT * FROM materia WHERE idMateria=?;");
             p.setInt(1, id);
             ResultSet rs = p.executeQuery();
             while (rs.next()) {
