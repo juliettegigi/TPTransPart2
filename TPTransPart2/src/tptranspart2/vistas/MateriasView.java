@@ -200,6 +200,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Baja no realizada");
         }
+        limpiar();
     }//GEN-LAST:event_btBorrarActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
