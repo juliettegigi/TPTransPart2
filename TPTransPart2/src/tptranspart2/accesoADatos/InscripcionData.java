@@ -139,11 +139,11 @@ public class InscripcionData {
         return materias;
     }
 
-    public static void actualizarNota(int idAlumno, int idMateria, int nota) {
+    public static void actualizarNota(int idAlumno, int idMateria, double nota) {
         c = Conexion.getConexion();
         try {
             p = c.prepareStatement("UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?;");
-            p.setInt(1, nota);
+            p.setDouble(1, nota);
             p.setInt(2, idAlumno);
             p.setInt(3, idMateria);
             p.execute();

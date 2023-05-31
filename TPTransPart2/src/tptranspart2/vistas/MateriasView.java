@@ -228,7 +228,6 @@ public class MateriasView extends javax.swing.JInternalFrame {
         btGuardar.setEnabled(false);
         btBorrar.setEnabled(true);
         btActualizar.setEnabled(true);
-        cbxEstado.setEnabled(false);
         
     }//GEN-LAST:event_btBuscarActionPerformed
 

@@ -245,7 +245,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         m.setNombre((String) jTableT.getValueAt(fila, 1));
         m.setAnio((int) jTableT.getValueAt(fila, 2));
         m.setEstado(true);
-        System.out.println(m);
+        
         
         // public Inscripcion(Alumno alumno, int nota, Materia materia)
         Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();

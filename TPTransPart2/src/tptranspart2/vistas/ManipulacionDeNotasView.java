@@ -6,6 +6,7 @@
 package tptranspart2.vistas;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import tptranspart2.accesoADatos.AlumnoData;
 import tptranspart2.accesoADatos.InscripcionData;
@@ -35,7 +36,7 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         listaInscripcion = (ArrayList<Inscripcion>) InscripcionData.obtenerInscripciones();
         listaMaterias = (ArrayList<Materia>) MateriaData.listarMaterias();
-        listaAlumnos = (ArrayList<Alumno>) AlumnoData.listarAlumnos();
+        listaAlumnos = (ArrayList<Alumno>) AlumnoData.listarAlumnosActivos();
         cargarAlumnos();
         armarCabeceraTabla();
         cargarDatos();
@@ -161,7 +162,32 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxAlumnoActionPerformed
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        // TODO add your handling code here:
+        // guardar la nota 
+        Alumno a=(Alumno) cbxAlumno.getSelectedItem();
+        
+        // ver que materia, que  fila de la tabla me seleccionó
+              
+        //ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
+        int fila=tabNotas.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(this,"Tiene que seleccionar una materia");
+            return;
+        }
+          
+        // valido que la nota sea válida
+        double nota=Double.parseDouble((String) tabNotas.getValueAt(fila, 2));
+        
+        if(nota<0 || nota>10){
+            JOptionPane.showMessageDialog(this, "Ingrese una nota válida(0-10)");
+            return;
+        }
+            
+        
+        // recupero el id de la materia 
+        Materia m=new Materia();
+     
+        m=MateriaData.buscarMateria((int) tabNotas.getValueAt(fila, 0));
+        InscripcionData.actualizarNota(a.getIdAlumno(), m.getIdMateria(), nota);
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
