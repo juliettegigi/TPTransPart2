@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import tptranspart2.entidades.Materia;
 
 /**
@@ -31,17 +32,18 @@ public class MateriaData {
         c = Conexion.getConexion();
 
         try {
-            System.out.println("hola");
             p = c.prepareStatement("INSERT INTO materia(nombre,año, estado) VALUES (?,?,?);");
             p.setString(1, m.getNombre());
             p.setInt(2, m.getAnio());
             p.setBoolean(3, m.isEstado());
             p.execute();
+            obtenetIdGenerado(m); 
+           
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("guardarMateria(Materia m)");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+           // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
             cerrarcyp();
@@ -169,6 +171,27 @@ public class MateriaData {
             System.out.println("cerrarcyp()");
             e.printStackTrace();
         }
+    }
+    
+    
+    
+    private static void obtenetIdGenerado(Materia m){
+        c = Conexion.getConexion();
+        try {
+            PreparedStatement ps = c.prepareStatement("SELECT MAX(idMateria) FROM materia");
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+               int idGenerado = resultSet.getInt(1);
+               m.setIdMateria(idGenerado);
+                
+               
+               ps.close();
+               resultSet.close();
+}
+        } catch (SQLException ex) {
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     }
 
 }

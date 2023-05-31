@@ -5,6 +5,7 @@
  */
 package tptranspart2.vistas;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import tptranspart2.accesoADatos.MateriaData;
 import tptranspart2.entidades.Materia;
@@ -44,6 +45,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
         btActualizar = new javax.swing.JButton();
         btLimpiar = new javax.swing.JButton();
         tfCodigo = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
 
@@ -112,50 +114,57 @@ public class MateriasView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(184, 184, 184)
-                        .addComponent(lbTitulo))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(46, 46, 46)
                                 .addComponent(btGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(btBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(btBorrar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58)
-                                .addComponent(cbxEstado)))))
+                        .addGap(4, 4, 4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(btBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btBorrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(cbxEstado)))
                 .addContainerGap(50, Short.MAX_VALUE))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lbTitulo)
+                .addGap(134, 134, 134))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -200,12 +209,51 @@ public class MateriasView extends javax.swing.JInternalFrame {
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
         //  ejecutar el guardar materia
         String nombre = tfNombre.getText();
-        int anio = Integer.parseInt(tfAnio.getText());
+        int anio=0;
+        ArrayList<String> errores=new ArrayList();
+        
+        nombre=nombre.trim();
+        
+        if(nombre.length()==0)
+            errores.add("El campo nombre es obligatorio");
+        else{
+            
+             if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*")){
+            errores.add("ha ingresado un carácter no válido");
+             }
+           
+        }
+        try{
+          anio = Integer.parseInt(tfAnio.getText());    
+        }
+        catch(Exception e){
+            errores.add("El año ingresado es incorrecto");
+        }
+        if(anio<1 || anio>7)
+             errores.add("Los años permitidos son 1-7");
+        
+        //////////////////////////////////// SI HAY CAMPOS MAL ... MENSAJE DE ERROR
+        if(errores.size()!=0){
+            String mensaje="";
+            for(int i=0; i<errores.size();i++){
+                if(i==errores.size()-1)
+                    mensaje+=errores.get(i)+", ";
+                else  mensaje+=errores.get(i)+".";
+            }
+          JOptionPane.showMessageDialog(this,mensaje);
+          return;
+        }
+        
+        ////////////////////  SI ME INGRESA EL NOMBRE DE UNA MATERIA QUE YA EXISTE ....MENSAJE DE ERROR 
         boolean estado = cbxEstado.isEnabled();//me retorna true si está activado
         //(String nombre, int anio, boolean estado)
-        Materia materia = new Materia(nombre, anio, estado);
-        MateriaData.guardarMateria(materia);
-        tfCodigo.setText(materia.getIdMateria() + "");
+        Materia materia = new Materia(nombre,anio,estado);
+       if( MateriaData.guardarMateria(materia)){           
+          tfCodigo.setText(materia.getIdMateria() + "");
+          JOptionPane.showMessageDialog(this, "La materia ya ha sido guardada");
+       }
+       else   tfCodigo.setText("");
+        
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
@@ -222,7 +270,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
         tfCodigo.setText("");
         tfNombre.setText("");
         tfAnio.setText("");
-        cbxEstado.setEnabled(false);
+        cbxEstado.setSelected(false);
     }//GEN-LAST:event_btLimpiarActionPerformed
 
 
@@ -233,6 +281,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btGuardar;
     private javax.swing.JButton btLimpiar;
     private javax.swing.JCheckBox cbxEstado;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbAnio;
     private javax.swing.JLabel lbCodigo;
     private javax.swing.JLabel lbNombre;
