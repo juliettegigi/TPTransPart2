@@ -70,8 +70,8 @@ public class MateriaData {
             p.close();
 
         } catch (SQLException ex) {
-            System.out.println("listarMaterias()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+           // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
@@ -94,8 +94,8 @@ public class MateriaData {
             }
             p.close();
         } catch (SQLException ex) {
-            System.out.println("buscarMateria()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, ex.getMessage());
+            //Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarcyp();
         }
@@ -114,8 +114,8 @@ public class MateriaData {
             p.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("modificarMateria()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, ex.getMessage());
+           // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
             cerrarcyp();
@@ -134,8 +134,8 @@ public class MateriaData {
             p.execute();
             return true;
         } catch (SQLException ex) {
-            System.out.println("darBajaMateria()");
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, ex.getMessage());
+           // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
         } finally {
             cerrarcyp();

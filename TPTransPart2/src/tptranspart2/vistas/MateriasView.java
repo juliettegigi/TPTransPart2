@@ -195,7 +195,15 @@ public class MateriasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBorrarActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-          Materia m = MateriaData.buscarMateria(Integer.parseInt(tfCodigo.getText()));
+        int i=0;
+        
+        try{
+           i=Integer.parseInt(tfCodigo.getText());    
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "El código debe ser un número");
+        }
+        
+        Materia m = MateriaData.buscarMateria(i);
         if (m == null) {
             JOptionPane.showMessageDialog(this, "La materia con ID: " + tfCodigo.getText() + " no existe en nuestro registro");
         } else {
@@ -204,6 +212,8 @@ public class MateriasView extends javax.swing.JInternalFrame {
             tfAnio.setText(m.getAnio()+"");
             cbxEstado.setSelected(m.isEstado());
         }
+        btGuardar.setEnabled(false);
+        
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
@@ -245,7 +255,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
         }
         
         ////////////////////  SI ME INGRESA EL NOMBRE DE UNA MATERIA QUE YA EXISTE ....MENSAJE DE ERROR 
-        boolean estado = cbxEstado.isEnabled();//me retorna true si está activado
+        boolean estado = cbxEstado.isSelected();//me retorna true si está activado
         //(String nombre, int anio, boolean estado)
         Materia materia = new Materia(nombre,anio,estado);
        if( MateriaData.guardarMateria(materia)){           
@@ -257,13 +267,58 @@ public class MateriasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
-        if (tfCodigo.getText() != null) {
+            
+           int codigo=0,anio=0;
+           ArrayList<String> errores=new ArrayList();
             String nombre = tfNombre.getText();
-            int anio = Integer.parseInt(tfAnio.getText());
-            boolean estado = cbxEstado.isEnabled();//me retorna true si está activado
-            Materia materia = new Materia(nombre, anio, estado);
-            MateriaData.modificarMateria(materia);
+           //VALIDO EL CODIGO
+            try{
+              codigo=Integer.parseInt(tfCodigo.getText());     
+           }catch(Exception e){
+               errores.add("El código debe ser un número");
+           } 
+          //VALIDO EL NOMBRE
+            nombre=nombre.trim();
+            if(nombre.length()==0)
+               errores.add("El campo nombre es obligatorio");
+            else{
+                if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*")){
+                    errores.add("ha ingresado un carácter no válido");
+                }
+            }
+            
+            // VALIDO EL AÑO
+           try{
+          anio = Integer.parseInt(tfAnio.getText());    
         }
+        catch(Exception e){
+            errores.add("El año ingresado es incorrecto");
+        }
+        if(anio<1 || anio>7)
+             errores.add("Los años permitidos son 1-7");
+            
+        // SI HAY ERROR EN LOS CAPOS...CARTEL Y CHAU
+          if(errores.size()!=0){
+            String mensaje="";
+            for(int i=0; i<errores.size();i++){
+                if(i==errores.size()-1)
+                    mensaje+=errores.get(i)+", ";
+                else  mensaje+=errores.get(i)+".";
+            }
+          JOptionPane.showMessageDialog(this,mensaje);
+          return;
+        }
+          
+          
+        ///  TODO BIEN ... EJECUTO EL UPDATEMATERIA  
+        
+        boolean estado = cbxEstado.isSelected();//me retorna true si está activado
+        Materia materia = new Materia(codigo,nombre, anio, estado);
+        if(MateriaData.modificarMateria(materia)){
+          JOptionPane.showMessageDialog(this, "La materia ya ha sido actualizada");
+        }
+        
+     
     }//GEN-LAST:event_btActualizarActionPerformed
 
     private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarActionPerformed
