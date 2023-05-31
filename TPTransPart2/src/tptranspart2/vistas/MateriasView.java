@@ -45,6 +45,8 @@ public class MateriasView extends javax.swing.JInternalFrame {
         btLimpiar = new javax.swing.JButton();
         tfCodigo = new javax.swing.JTextField();
 
+        setClosable(true);
+
         lbTitulo.setFont(new java.awt.Font("Haettenschweiler", 0, 48)); // NOI18N
         lbTitulo.setText("MATERIA:");
 

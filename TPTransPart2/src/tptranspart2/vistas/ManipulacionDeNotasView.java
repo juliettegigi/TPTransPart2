@@ -59,6 +59,8 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
         btGuardar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
 
+        setClosable(true);
+
         lbTitulo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitulo.setText("Carga de Notas");
