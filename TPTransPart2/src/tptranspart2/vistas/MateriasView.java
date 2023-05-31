@@ -21,6 +21,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
      */
     public MateriasView() {
         initComponents();
+        limpiar();
     }
 
     /**
@@ -66,6 +67,12 @@ public class MateriasView extends javax.swing.JInternalFrame {
 
         cbxEstado.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         cbxEstado.setText("Estado");
+
+        tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfNombreKeyReleased(evt);
+            }
+        });
 
         btBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btBuscar.setText("Buscar");
@@ -187,6 +194,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
 
 
     private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
+        //si no existe me dice "materia dada de baja"
         if (MateriaData.darBajaMaterias(Integer.parseInt(tfCodigo.getText()))) {
             JOptionPane.showMessageDialog(this, "Materia dada de baja");
         } else {
@@ -201,11 +209,15 @@ public class MateriasView extends javax.swing.JInternalFrame {
            i=Integer.parseInt(tfCodigo.getText());    
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "El código debe ser un número");
+            return;
         }
         
         Materia m = MateriaData.buscarMateria(i);
         if (m == null) {
             JOptionPane.showMessageDialog(this, "La materia con ID: " + tfCodigo.getText() + " no existe en nuestro registro");
+            btBorrar.setEnabled(false);
+            btActualizar.setEnabled(false);
+            return;
         } else {
             tfCodigo.setText(m.getIdMateria()+"");
             tfNombre.setText(m.getNombre());
@@ -213,6 +225,9 @@ public class MateriasView extends javax.swing.JInternalFrame {
             cbxEstado.setSelected(m.isEstado());
         }
         btGuardar.setEnabled(false);
+        btBorrar.setEnabled(true);
+        btActualizar.setEnabled(true);
+        cbxEstado.setEnabled(false);
         
     }//GEN-LAST:event_btBuscarActionPerformed
 
@@ -322,13 +337,26 @@ public class MateriasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btActualizarActionPerformed
 
     private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarActionPerformed
-        tfCodigo.setText("");
+        limpiar();
+    }//GEN-LAST:event_btLimpiarActionPerformed
+
+    private void tfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyReleased
+       btGuardar.setEnabled(true);
+    }//GEN-LAST:event_tfNombreKeyReleased
+
+
+    private void limpiar(){
+        btGuardar.setEnabled(false);
+        btBorrar.setEnabled(false);
+        btActualizar.setEnabled(false);
+         tfCodigo.setText("");
         tfNombre.setText("");
         tfAnio.setText("");
         cbxEstado.setSelected(false);
-    }//GEN-LAST:event_btLimpiarActionPerformed
-
-
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btActualizar;
     private javax.swing.JButton btBorrar;

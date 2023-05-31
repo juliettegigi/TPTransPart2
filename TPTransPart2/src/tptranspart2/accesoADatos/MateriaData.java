@@ -57,7 +57,7 @@ public class MateriaData {
         List<Materia> materias = new ArrayList<>();
 
         try {
-            p = c.prepareStatement("SELECT * FROM materia");
+            p = c.prepareStatement("SELECT * FROM materia;");
             ResultSet rs = p.executeQuery();
             while (rs.next()) {
                 m = new Materia();
@@ -78,11 +78,13 @@ public class MateriaData {
         return materias;
     }
 
+    
+   
     public static Materia buscarMateria(int id) {
         c = Conexion.getConexion();
         Materia m = null;
-        try {
-            p = c.prepareStatement("SELECT * FROM materia WHERE idMateria=?");
+        try { //SELECT * FROM materia WHERE idMateria=5 AND estado=1;
+            p = c.prepareStatement("SELECT * FROM materia WHERE idMateria=?;");
             p.setInt(1, id);
             ResultSet rs = p.executeQuery();
             while (rs.next()) {
@@ -92,7 +94,7 @@ public class MateriaData {
                 m.setAnio(rs.getInt("año"));
                 m.setEstado(rs.getBoolean("estado"));
             }
-            p.close();
+            
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, ex.getMessage());
             //Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,7 +108,7 @@ public class MateriaData {
         c = Conexion.getConexion();
 
         try {
-            p = c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?");
+            p = c.prepareStatement("UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?;");
             p.setString(1, materia.getNombre());
             p.setInt(2, materia.getAnio());
             p.setBoolean(3, materia.isEstado());
