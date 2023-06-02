@@ -180,8 +180,15 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
                 int m=Integer.parseInt(tabNotas.getValueAt(row, 0).toString());
                 // valido que la nota sea válida
                 double nota=0.0;
-                try{                    
-                   nota =Double.parseDouble(tabNotas.getValueAt(row, 2).toString());
+                try{  
+                    
+                    String notaString=tabNotas.getValueAt(row, 2).toString();
+                    if(notaString.contains(",")){
+                        String arr[]=notaString.split(",");
+                        notaString=arr[0]+"."+arr[1];
+                    } 
+                    
+                   nota =Double.parseDouble(notaString);
                 }catch(Exception e){
                  
                     JOptionPane.showMessageDialog(this, "No ha ingresado correctamente la nota");
