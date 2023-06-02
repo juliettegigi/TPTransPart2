@@ -33,7 +33,6 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         initComponents();
         modelo=new DefaultTableModel();
         listaAlumnos=(ArrayList<Alumno>) AlumnoData.listarAlumnosActivos();
-        System.out.println("a ver  "+listaAlumnos);
         cargarAlumnos();
         armarCabeceraTabla();
      

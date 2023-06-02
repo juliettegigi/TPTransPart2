@@ -33,8 +33,15 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
      */
     public ManipulacionDeNotasView() {
         initComponents();
-        modelo = new DefaultTableModel();
-        listaInscripcion = (ArrayList<Inscripcion>) InscripcionData.obtenerInscripciones();
+        btnActualizar.setEnabled(false);
+        modelo = new DefaultTableModel() {
+            @Override
+             public boolean isCellEditable(int row, int column) {
+                return !(column == 0 || column == 1 );
+            }
+        };
+
+        
         listaMaterias = (ArrayList<Materia>) MateriaData.listarMaterias();
         listaAlumnos = (ArrayList<Alumno>) AlumnoData.listarAlumnosActivos();
         cargarAlumnos();
@@ -58,7 +65,7 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabNotas = new javax.swing.JTable();
         btGuardar = new javax.swing.JButton();
-        btCancelar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -104,11 +111,11 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
             }
         });
 
-        btCancelar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        btCancelar.setText("Cancelar");
-        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCancelarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -124,17 +131,18 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
                         .addGap(38, 38, 38)
                         .addComponent(cbxAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(btGuardar)
-                        .addGap(97, 97, 97)
-                        .addComponent(btCancelar))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(189, 189, 189)
                         .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(99, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(btGuardar)
+                .addGap(108, 108, 108))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,60 +155,61 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
                     .addComponent(lbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbxAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxAlumnoActionPerformed
+        btnActualizar.setEnabled(false);
         cargarDatos();
     }//GEN-LAST:event_cbxAlumnoActionPerformed
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        // guardar la nota 
+        // VAMOS A HACER UN "InscripcionData.actualizarNota(a.getIdAlumno(), m, nota);" CON TODAS LAS ROWS
         Alumno a=(Alumno) cbxAlumno.getSelectedItem();
-        
-        // ver que materia, que  fila de la tabla me seleccionó
-              
-        //ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
-        int fila=tabNotas.getSelectedRow();
-        if(fila==-1){
-            JOptionPane.showMessageDialog(this,"Tiene que seleccionar una materia");
-            return;
-        }
-          
 
-            
- 
-        
-        
-        
-         // Recorrer la tabla y obtener los datos
+        // Recorrer la tabla y obtener los datos
         for (int row = 0; row < tabNotas.getRowCount(); row++) {
                 // recupero el id de la materia                 
                 int m=Integer.parseInt(tabNotas.getValueAt(row, 0).toString());
                 // valido que la nota sea válida
-                double nota=Double.parseDouble((String) tabNotas.getValueAt(row, 2));
+                double nota=0.0;
+                try{                    
+                   nota =Double.parseDouble(tabNotas.getValueAt(row, 2).toString());
+                }catch(Exception e){
+                 
+                    JOptionPane.showMessageDialog(this, "No ha ingresado correctamente la nota");
+                     return;
+                }
+                
                 if(nota<0 || nota>10){
                      JOptionPane.showMessageDialog(this, "Ingrese una nota válida(0-10)");
                      return;
                  }
                 InscripcionData.actualizarNota(a.getIdAlumno(), m, nota);
+               
         }
-        
+         JOptionPane.showMessageDialog(this, "Notas actualizadas, actualice para checkear los cambios");
+         btnActualizar.setEnabled(true);
     }//GEN-LAST:event_btGuardarActionPerformed
 
-    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
-        dispose();
-    }//GEN-LAST:event_btCancelarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        armarCabeceraTabla();
+        cargarDatos();
+        btnActualizar.setEnabled(false);
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     //inicializo el combo box
     public void cargarAlumnos(){
+        
         for(Alumno item:listaAlumnos)
             cbxAlumno.addItem(item);
     }
@@ -223,6 +232,7 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
     }
     
     public void cargarDatos(){
+        listaInscripcion = (ArrayList<Inscripcion>) InscripcionData.obtenerInscripciones();
         borrarFilasTabla();
         Alumno a =(Alumno)cbxAlumno.getSelectedItem();
         for(Inscripcion m:listaInscripcion){
@@ -234,8 +244,8 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelar;
     private javax.swing.JButton btGuardar;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JComboBox<Alumno> cbxAlumno;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbAlumno;
