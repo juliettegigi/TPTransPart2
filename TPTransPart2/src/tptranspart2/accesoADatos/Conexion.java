@@ -8,6 +8,7 @@ package tptranspart2.accesoADatos;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,12 +30,13 @@ public class Conexion {
                 Class.forName("org.mariadb.jdbc.Driver");
                 con = DriverManager.getConnection(URL, USER, PASS);
                 
-            } catch (ClassNotFoundException e1) {
-                System.out.println("problema con el driver");
-                e1.printStackTrace();
+            } catch (ClassNotFoundException e) {
+              JOptionPane.showMessageDialog(null, e.getMessage());
             } catch (SQLException e) {
-                System.out.println("error de conexión");
-                e.printStackTrace();
+                
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                       
+               
             }
        
 

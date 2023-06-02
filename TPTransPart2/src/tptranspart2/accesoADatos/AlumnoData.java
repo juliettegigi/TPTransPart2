@@ -45,7 +45,8 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("guardarAlumno ()");
 
-        } finally {
+        } catch(Exception e){}
+        finally {
             cerrarcyp();
             System.out.println("ewqe");
         }
@@ -74,13 +75,15 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("buscarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
             try {
                 rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }catch(Exception e){          
+                   }
         }
         return a;
     }
@@ -105,7 +108,9 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("buscarAlumnoPorDni()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){
+            
+                   } finally {
             cerrarcyp();
         }
         return a;
@@ -134,7 +139,9 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("listarAlumnos()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){
+            e.printStackTrace();
+                   } finally {
             cerrarcyp();
         }
         return alumnos;
@@ -143,13 +150,16 @@ public class AlumnoData {
         public static List<Alumno> listarAlumnosActivos() {
         c = Conexion.getConexion();
 
-        Alumno a = null;
         List<Alumno> alumnos = new ArrayList<>();
-        try {
+        try { 
+            
+            System.out.println("a ver ");
             p = c.prepareStatement("SELECT * FROM alumno WHERE estado=true");
+           
             ResultSet rs = p.executeQuery();
+             
             while (rs.next()) {
-                a = new Alumno();
+                Alumno a = new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));
                 a.setDni(rs.getInt("dni"));
                 a.setApellido(rs.getString("apellido"));
@@ -163,9 +173,13 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("listarAlumnos()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){
+            e.printStackTrace();
+                   }
+             finally {
             cerrarcyp();
         }
+            System.out.println("a ver   "+alumnos);
         return alumnos;
     }
     
@@ -188,7 +202,10 @@ public class AlumnoData {
             System.out.println("modificarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally {
+        } catch(Exception e){
+            e.printStackTrace();
+                   }
+        finally {
             cerrarcyp();
         }
         return false;
@@ -206,7 +223,10 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("darBajaAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){
+            e.printStackTrace();
+                   } 
+        finally {
             cerrarcyp();
         }
         return false;
@@ -224,7 +244,10 @@ public class AlumnoData {
             System.out.println("eliminarAlumno()");
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally {
+        }catch(Exception e){
+            e.printStackTrace();
+                   }
+        finally {
             cerrarcyp();
         }
         return false;
@@ -235,11 +258,8 @@ public class AlumnoData {
             p.close();
             c.close();
         } catch (SQLException ex1) {
-            System.out.println("cerrarcyp()");
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex1);
+          
         } catch (Exception e) {
-            System.out.println("cerrarcyp()");
-            e.printStackTrace();
         }
     }
 
@@ -258,7 +278,9 @@ public class AlumnoData {
 }
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }catch(Exception e){
+            
+                   }
       
     }
     

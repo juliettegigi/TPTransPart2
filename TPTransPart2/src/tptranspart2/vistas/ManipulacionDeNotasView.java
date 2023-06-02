@@ -174,20 +174,25 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
             return;
         }
           
-        // valido que la nota sea válida
-        double nota=Double.parseDouble((String) tabNotas.getValueAt(fila, 2));
-        
-        if(nota<0 || nota>10){
-            JOptionPane.showMessageDialog(this, "Ingrese una nota válida(0-10)");
-            return;
-        }
+
             
+ 
         
-        // recupero el id de la materia 
-        Materia m=new Materia();
-     
-        m=MateriaData.buscarMateria((int) tabNotas.getValueAt(fila, 0));
-        InscripcionData.actualizarNota(a.getIdAlumno(), m.getIdMateria(), nota);
+        
+        
+         // Recorrer la tabla y obtener los datos
+        for (int row = 0; row < tabNotas.getRowCount(); row++) {
+                // recupero el id de la materia                 
+                int m=Integer.parseInt(tabNotas.getValueAt(row, 0).toString());
+                // valido que la nota sea válida
+                double nota=Double.parseDouble((String) tabNotas.getValueAt(row, 2));
+                if(nota<0 || nota>10){
+                     JOptionPane.showMessageDialog(this, "Ingrese una nota válida(0-10)");
+                     return;
+                 }
+                InscripcionData.actualizarNota(a.getIdAlumno(), m, nota);
+        }
+        
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed

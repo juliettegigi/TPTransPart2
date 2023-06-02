@@ -45,7 +45,8 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, ex.getMessage());
            // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return false;
@@ -72,7 +73,8 @@ public class MateriaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
            // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return materias;
@@ -98,7 +100,8 @@ public class MateriaData {
         } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, ex.getMessage());
             //Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return m;
@@ -119,7 +122,8 @@ public class MateriaData {
              JOptionPane.showMessageDialog(null, ex.getMessage());
            // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return false;
@@ -139,7 +143,8 @@ public class MateriaData {
              JOptionPane.showMessageDialog(null, ex.getMessage());
            // Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return false;
@@ -156,7 +161,8 @@ public class MateriaData {
             System.out.println("eliminarMateria()");
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally {
+        } catch(Exception e){}
+        finally {
             cerrarcyp();
         }
         return false;
@@ -193,6 +199,7 @@ public class MateriaData {
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch(Exception e){}
       
     }
 

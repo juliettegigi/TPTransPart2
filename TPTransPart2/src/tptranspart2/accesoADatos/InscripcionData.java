@@ -43,8 +43,9 @@ public class InscripcionData {
             return true;
         } catch (SQLException e) {
             System.out.println("ERROR en guardarInscripcion()");
-            return false;
-        }
+            
+        }catch(Exception e){} 
+       return false;
     }
 
     public static List<Inscripcion> obtenerInscripciones() {
@@ -75,7 +76,8 @@ public class InscripcionData {
             System.out.println("ERROR en obtenerInscripcion()");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
 
@@ -106,7 +108,8 @@ public class InscripcionData {
             System.out.println("ERROR en obtenerMateriasCursadas " + ex.toString());
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return m;
@@ -133,7 +136,8 @@ public class InscripcionData {
             System.out.println("ERROR en obtenerMateriasNOCursadas(int id)");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
         return materias;
@@ -151,7 +155,8 @@ public class InscripcionData {
         } catch (SQLException ex) {
             System.out.println("ERROR en actualizarNota()");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
     }
@@ -174,7 +179,8 @@ public class InscripcionData {
         } catch (SQLException ex) {
             System.out.println("ERROR en obtenerAlumnosPorMateria()");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
 
@@ -198,7 +204,8 @@ public class InscripcionData {
             }
         } catch(SQLException e){
             System.out.println("Error al obtenerInscripcionesPorAlumno"+e.toString());
-        } finally{
+        }catch(Exception e){} 
+        finally{
             cerrarcyp();
         }
         return i;
@@ -217,7 +224,8 @@ public class InscripcionData {
         } catch (SQLException ex) {
             System.out.println("ERROR en borrarInscripcionMateriaAlumno()");
             Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }catch(Exception e){} 
+        finally {
             cerrarcyp();
         }
     }

@@ -33,7 +33,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         initComponents();
         modelo=new DefaultTableModel();
         listaAlumnos=(ArrayList<Alumno>) AlumnoData.listarAlumnosActivos();
-        System.out.println(listaAlumnos);
+        System.out.println("a ver  "+listaAlumnos);
         cargarAlumnos();
         armarCabeceraTabla();
      
@@ -306,6 +306,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
 
     
        private void cargarAlumnos(){
+     
         for(Alumno item:listaAlumnos)
             jComboBoxAlumnos.addItem(item);
         
@@ -320,6 +321,8 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
            for(Object it:columna){
                modelo.addColumn(it);
            }
+           
+          
            jTableT.setModel(modelo);
        }
     
@@ -328,6 +331,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         
             for(Materia m:lista){
                 modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAnio()});
+               
             }
              
        
