@@ -19,12 +19,12 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-         Toolkit miPantalla= Toolkit.getDefaultToolkit();//Asi obtengo la pantalla
-       Dimension tamanioPantalla=miPantalla.getScreenSize();//obtengo  la resolución de mi pantalla
-       int alturaPantalla=tamanioPantalla.height+200;
-       int anchoPantalla=tamanioPantalla.width;
-       setSize(anchoPantalla/2,alturaPantalla/2);
-       setLocation(anchoPantalla/4,alturaPantalla/4);
+        Toolkit miPantalla = Toolkit.getDefaultToolkit();//Asi obtengo la pantalla
+        Dimension tamanioPantalla = miPantalla.getScreenSize();//obtengo  la resolución de mi pantalla
+        int alturaPantalla = tamanioPantalla.height + 400;
+        int anchoPantalla = tamanioPantalla.width;
+        setSize(anchoPantalla / 2, alturaPantalla / 2);
+        setLocation(anchoPantalla / 4, (alturaPantalla / 4)-200);
     }
 
     /**
@@ -165,21 +165,21 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void MIFormAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIFormAlumnoActionPerformed
         escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
         escritorio.repaint();//dibuja todo de nuevo
-        AlumnosView alumnosView=new AlumnosView();
+        AlumnosView alumnosView = new AlumnosView();
         alumnosView.setVisible(true);
         escritorio.add(alumnosView);
         escritorio.moveToFront(alumnosView);
-        
+
     }//GEN-LAST:event_MIFormAlumnoActionPerformed
 
     private void MIFormMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIFormMateriaActionPerformed
         escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
         escritorio.repaint();//dibuja todo de nuevo
-        MateriasView materiasView=new MateriasView();
+        MateriasView materiasView = new MateriasView();
         materiasView.setVisible(true);
         escritorio.add(materiasView);
         escritorio.moveToFront(materiasView);
@@ -188,25 +188,25 @@ public class Principal extends javax.swing.JFrame {
     private void MIManejoInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIManejoInscripcionesActionPerformed
         escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
         escritorio.repaint();//dibuja todo de nuevo
-        ManejoInscripcionesView manejoInscripcionesView=new ManejoInscripcionesView();
+        ManejoInscripcionesView manejoInscripcionesView = new ManejoInscripcionesView();
         manejoInscripcionesView.setVisible(true);
-        escritorio.add( manejoInscripcionesView);
+        escritorio.add(manejoInscripcionesView);
         escritorio.moveToFront(manejoInscripcionesView);
     }//GEN-LAST:event_MIManejoInscripcionesActionPerformed
 
     private void MIManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIManipulacionNotasActionPerformed
         escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
         escritorio.repaint();//dibuja todo de nuevo
-        ManipulacionDeNotasView manipulacionDeNotasView=new ManipulacionDeNotasView();
+        ManipulacionDeNotasView manipulacionDeNotasView = new ManipulacionDeNotasView();
         manipulacionDeNotasView.setVisible(true);
-        escritorio.add( manipulacionDeNotasView);
+        escritorio.add(manipulacionDeNotasView);
         escritorio.moveToFront(manipulacionDeNotasView);
     }//GEN-LAST:event_MIManipulacionNotasActionPerformed
 
     private void MIListaAlumXMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIListaAlumXMateriaActionPerformed
-         escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
+        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
         escritorio.repaint();//dibuja todo de nuevo
-       ListadoDeAlumnosPorMateriaView listadoDeAlumnosPorMateriaView=new ListadoDeAlumnosPorMateriaView();
+        ListadoDeAlumnosPorMateriaView listadoDeAlumnosPorMateriaView = new ListadoDeAlumnosPorMateriaView();
         listadoDeAlumnosPorMateriaView.setVisible(true);
         escritorio.add(listadoDeAlumnosPorMateriaView);
         escritorio.moveToFront(listadoDeAlumnosPorMateriaView);
