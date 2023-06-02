@@ -90,7 +90,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "ID:" + idAlumno + " |DNI:" + dni + " |Nombre:" + nombre + " |Apellido:" + apellido+ " |Fecha de Nacimiento:" + fechaNacimiento  + " |Estado:" + estado+"\n";
+        return "ID:" + idAlumno + " | " + apellido +" "+ nombre ;
     }
 
 }

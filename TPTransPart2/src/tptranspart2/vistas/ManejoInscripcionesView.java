@@ -220,12 +220,13 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
    
     private void jComboBoxAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosActionPerformed
-        //lista de alumnos
-     /*  for (Alumno a:AlumnoData.listarAlumnos()){
-           String idAlumno=String.valueOf(a.getIdAlumno());
-           jComboBoxAlumnos.addItem(idAlumno+" "+a.getNombre());
-           
-       }*/
+      if(jRadioButtonIns.isSelected()){
+          botonInscripto();
+      }
+      if(jRadioButtonNoIns.isSelected()){
+          botonNoInscripto();
+      }
+      
     }//GEN-LAST:event_jComboBoxAlumnosActionPerformed
     
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
@@ -277,8 +278,9 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
       
     }//GEN-LAST:event_jbAnularActionPerformed
 
-    private void jRadioButtonInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInsActionPerformed
-        //boton Inscripto
+    
+    private void botonInscripto(){
+           //boton Inscripto
         Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
         //obtengo la lista de las materias q cursa el alumno seleccionado
         ArrayList<Materia> listaMaterias=(ArrayList<Materia>) InscripcionData.obtenerMateriasCursadas(a.getIdAlumno());
@@ -287,18 +289,26 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         // deshabilito el botón "inscribir"
         jbAnular.setEnabled(true);
         jbInscribir.setEnabled(false);
-    }//GEN-LAST:event_jRadioButtonInsActionPerformed
-
-    private void jRadioButtonNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNoInsActionPerformed
-        // boton no Inscripto
+    }
+    
+      private void botonNoInscripto(){
+           //boton Inscripto
         Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
-        //obtengo la lista de las materias q no cursa el alumno seleccionado
+        //obtengo la lista de las materias q cursa el alumno seleccionado
         ArrayList<Materia> listaMaterias=(ArrayList<Materia>) InscripcionData.obtenerMateriasNOCursadas(a.getIdAlumno());
         //las muestro en la tablas
         llenarTabla(listaMaterias);
-        // deshabilito el botón "anular inscripción"
-        jbAnular.setEnabled(false);
-        jbInscribir.setEnabled(true);
+        // deshabilito el botón "inscribir"
+        jbAnular.setEnabled(true);
+        jbInscribir.setEnabled(false);
+    }
+    
+    private void jRadioButtonInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInsActionPerformed
+       botonInscripto();
+    }//GEN-LAST:event_jRadioButtonInsActionPerformed
+
+    private void jRadioButtonNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNoInsActionPerformed
+       botonNoInscripto();
     }//GEN-LAST:event_jRadioButtonNoInsActionPerformed
     
     
