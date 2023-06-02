@@ -36,10 +36,9 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        MArchivo = new javax.swing.JMenu();
-        MISalir = new javax.swing.JMenuItem();
         MMaterias = new javax.swing.JMenu();
         MIFormMateria = new javax.swing.JMenuItem();
         MAlumnos = new javax.swing.JMenu();
@@ -50,6 +49,10 @@ public class Principal extends javax.swing.JFrame {
         MIManipulacionNotas = new javax.swing.JMenuItem();
         MConsulta = new javax.swing.JMenu();
         MIListaAlumXMateria = new javax.swing.JMenuItem();
+        jmSalir = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,18 +66,6 @@ public class Principal extends javax.swing.JFrame {
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 697, Short.MAX_VALUE)
         );
-
-        MArchivo.setText("Archivo");
-
-        MISalir.setText("Salir");
-        MISalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MISalirActionPerformed(evt);
-            }
-        });
-        MArchivo.add(MISalir);
-
-        jMenuBar1.add(MArchivo);
 
         MMaterias.setText("Materias");
 
@@ -126,12 +117,12 @@ public class Principal extends javax.swing.JFrame {
 
         MConsulta.setText("Consultas");
         MConsulta.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                MConsultaAncestorMoved(evt);
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                MConsultaAncestorMoved(evt);
             }
         });
 
@@ -144,6 +135,23 @@ public class Principal extends javax.swing.JFrame {
         MConsulta.add(MIListaAlumXMateria);
 
         jMenuBar1.add(MConsulta);
+
+        jmSalir.setText("Salir");
+        jmSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmSalirActionPerformed(evt);
+            }
+        });
+
+        jMenuItem2.setText("Salir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmSalir.add(jMenuItem2);
+
+        jMenuBar1.add(jmSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -216,9 +224,13 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_MConsultaAncestorMoved
 
-    private void MISalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MISalirActionPerformed
+    private void jmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSalirActionPerformed
+        
+    }//GEN-LAST:event_jmSalirActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         dispose();
-    }//GEN-LAST:event_MISalirActionPerformed
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,7 +269,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MAlumnos;
-    private javax.swing.JMenu MArchivo;
     private javax.swing.JMenu MCargaNotas;
     private javax.swing.JMenu MConsulta;
     private javax.swing.JMenuItem MIFormAlumno;
@@ -265,10 +276,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem MIListaAlumXMateria;
     private javax.swing.JMenuItem MIManejoInscripciones;
     private javax.swing.JMenuItem MIManipulacionNotas;
-    private javax.swing.JMenuItem MISalir;
     private javax.swing.JMenu MInscripciones;
     private javax.swing.JMenu MMaterias;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }
