@@ -30,12 +30,15 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
      * Creates new form ManejoInscripcionesView
      */
     public ManejoInscripcionesView() {
+        AlumnoData alumnoData=new AlumnoData();
         initComponents();
         modelo=new DefaultTableModel();
-        listaAlumnos=(ArrayList<Alumno>) AlumnoData.listarAlumnosActivos();
+        listaAlumnos=(ArrayList<Alumno>) alumnoData.listarAlumnosActivos(true);
         cargarAlumnos();
         armarCabeceraTabla();
-     
+        jRadioButtonIns.setSelected(true);
+        llenarTabla(true);
+        jbInscribir.setEnabled(false);
     }
    
     /**
@@ -222,16 +225,18 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
    
     private void jComboBoxAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAlumnosActionPerformed
       if(jRadioButtonIns.isSelected()){
-          botonInscripto();
+          botonInscripto(true);
       }
       if(jRadioButtonNoIns.isSelected()){
-          botonNoInscripto();
+          botonInscripto(false);
       }
       
     }//GEN-LAST:event_jComboBoxAlumnosActionPerformed
     
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
-        // boton Inscribir
+                   InscripcionData inscripcionData=new InscripcionData();        
+
+// boton Inscribir
         
         //ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
         int fila=jTableT.getSelectedRow();
@@ -250,15 +255,15 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         
         // public Inscripcion(Alumno alumno, int nota, Materia materia)
         Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
-        Inscripcion i=new Inscripcion(a,-1,m);
+        Inscripcion i=new Inscripcion(a,0,m);
         //ahora inscribo, tengo q pasarle una inscripción
-        InscripcionData.guardarInscripcion(i);
-        borrarFilas();
+        inscripcionData.guardarInscripcion(i);
+        llenarTabla(false);
     }//GEN-LAST:event_jbInscribirActionPerformed
 
     private void jbAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularActionPerformed
         // boton Anular Inscripcion
-        
+        InscripcionData inscripcionData=new InscripcionData(); 
         ////ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
           int fila=jTableT.getSelectedRow();
         if(fila==-1){
@@ -274,42 +279,31 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
         //obtengo el id de la mteria seleccionada en la tabla
         int idm=(int) jTableT.getValueAt(fila, 0);
         
-        InscripcionData.borrarInscripcionMateriaAlumno(ida, idm);
-        borrarFilas();      
+        inscripcionData.borrarInscripcionMateriaAlumno(ida, idm);
+        llenarTabla(true);      
       
     }//GEN-LAST:event_jbAnularActionPerformed
 
     
-    private void botonInscripto(){
+    private void botonInscripto(boolean f){
            //boton Inscripto
-        Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
-        //obtengo la lista de las materias q cursa el alumno seleccionado
-        ArrayList<Materia> listaMaterias=(ArrayList<Materia>) InscripcionData.obtenerMateriasCursadas(a.getIdAlumno());
+        
+         
         //las muestro en la tablas
-        llenarTabla(listaMaterias);
+        llenarTabla(f);
         // deshabilito el botón "inscribir"
-        jbAnular.setEnabled(true);
-        jbInscribir.setEnabled(false);
+        jbAnular.setEnabled(f);
+        jbInscribir.setEnabled(!f);
     }
     
-      private void botonNoInscripto(){
-           //boton Inscripto
-        Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
-        //obtengo la lista de las materias q cursa el alumno seleccionado
-        ArrayList<Materia> listaMaterias=(ArrayList<Materia>) InscripcionData.obtenerMateriasNOCursadas(a.getIdAlumno());
-        //las muestro en la tablas
-        llenarTabla(listaMaterias);
-        // deshabilito el botón "inscribir"
-        jbAnular.setEnabled(true);
-        jbInscribir.setEnabled(false);
-    }
+    
     
     private void jRadioButtonInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInsActionPerformed
-       botonInscripto();
+       botonInscripto(true);
     }//GEN-LAST:event_jRadioButtonInsActionPerformed
 
     private void jRadioButtonNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNoInsActionPerformed
-       botonNoInscripto();
+       botonInscripto(false);
     }//GEN-LAST:event_jRadioButtonNoInsActionPerformed
     
     
@@ -336,10 +330,17 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
            jTableT.setModel(modelo);
        }
     
-    private void llenarTabla(List<Materia> lista){
+    private void llenarTabla(boolean f){
         borrarFilas();
-        
-            for(Materia m:lista){
+        ArrayList<Materia> listaMaterias=null;
+         InscripcionData inscripcionData=new InscripcionData();
+          Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
+        //obtengo la lista de las materias q cursa el alumno seleccionado
+        if(f==true)
+            listaMaterias=(ArrayList<Materia>) inscripcionData.obtenerMateriasCursadas(a.getIdAlumno());
+        else listaMaterias=(ArrayList<Materia>) inscripcionData.obtenerMateriasNOCursadas(a.getIdAlumno()); 
+            
+        for(Materia m:listaMaterias){
                 modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),m.getAnio()});
                
             }

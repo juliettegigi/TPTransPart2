@@ -16,32 +16,31 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
-    final static String URL = "jdbc:mariadb://localhost/universidadGp8";
-    final static String USER = "root";
-    final static String PASS = "";
+    private final static String URL = "jdbc:mariadb://localhost/";
+    private final static String DB = "universidadGp82";
+    private final static String USER = "root";
+    private final static String PASS = "";
 
-    private static Connection con;
+    private static Connection connection;
 
+    private Conexion() {
+
+    }
 
     public static Connection getConexion() {
+        if (connection == null) {
 
-      
             try {
                 Class.forName("org.mariadb.jdbc.Driver");
-                con = DriverManager.getConnection(URL, USER, PASS);
-                
-            } catch (ClassNotFoundException e) {
-              JOptionPane.showMessageDialog(null, e.getMessage());
-            } catch (SQLException e) {
-                
-                JOptionPane.showMessageDialog(null, e.getMessage());
-                       
-               
+                connection = DriverManager.getConnection(URL + DB+"?useLegacyDataTimeCode=false&serverTimeZone=UTC"+"&user="+USER+"&password="+PASS);
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null,"Error al cargar los drivers, "+ex.getMessage());
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Error al conectarse a la DB, "+ex.getMessage());
             }
-       
+        }
 
-        return con;// retorno null si no me conecto 
-        // sino la conexión
+        return connection;  //retorno la conexion o una excepción
 
     }
 }

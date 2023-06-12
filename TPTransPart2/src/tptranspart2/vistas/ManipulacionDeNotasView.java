@@ -32,6 +32,9 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
      * Creates new form ManipulacionDeNotasView
      */
     public ManipulacionDeNotasView() {
+        MateriaData materiaData=new MateriaData();
+        AlumnoData alumnoData=new AlumnoData();
+        InscripcionData inscripcionData=new InscripcionData();
         initComponents();
         btnActualizar.setEnabled(false);
         modelo = new DefaultTableModel() {
@@ -42,8 +45,8 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
         };
 
         
-        listaMaterias = (ArrayList<Materia>) MateriaData.listarMaterias();
-        listaAlumnos = (ArrayList<Alumno>) AlumnoData.listarAlumnosActivos();
+        listaMaterias = (ArrayList<Materia>) materiaData.listarMaterias();
+        listaAlumnos = (ArrayList<Alumno>) inscripcionData.alumnosInscriptos();
         cargarAlumnos();
         armarCabeceraTabla();
         cargarDatos();
@@ -172,8 +175,9 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
         // VAMOS A HACER UN "InscripcionData.actualizarNota(a.getIdAlumno(), m, nota);" CON TODAS LAS ROWS
+        ArrayList<String> errores=new ArrayList();
         Alumno a=(Alumno) cbxAlumno.getSelectedItem();
-
+InscripcionData inscripcionData=new InscripcionData();
         // Recorrer la tabla y obtener los datos
         for (int row = 0; row < tabNotas.getRowCount(); row++) {
                 // recupero el id de la materia                 
@@ -189,19 +193,29 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
                     } 
                     
                    nota =Double.parseDouble(notaString);
+                   if(nota<0 || nota>10){
+                     throw new Exception();
+      
+                 }
                 }catch(Exception e){
                  
-                    JOptionPane.showMessageDialog(this, "No ha ingresado correctamente la nota");
-                     return;
+                    errores.add( "ID="+m+", ingrese una nota válida(0-10)\n");
+                    continue;
                 }
                 
-                if(nota<0 || nota>10){
-                     JOptionPane.showMessageDialog(this, "Ingrese una nota válida(0-10)");
-                     return;
-                 }
-                InscripcionData.actualizarNota(a.getIdAlumno(), m, nota);
+                
+               if(!inscripcionData.actualizarNota(a.getIdAlumno(), m, nota))
+                   errores.add("La nota no pudo ser actualizada, id("+m+") no encontrado");
                
         }
+        if(!errores.isEmpty()){
+            String mensaje="";
+            while(!errores.isEmpty())
+                 mensaje+=errores.remove(0);
+            JOptionPane.showMessageDialog(this, mensaje);
+            return;
+        }
+        
          JOptionPane.showMessageDialog(this, "Notas actualizadas, actualice para checkear los cambios");
          btnActualizar.setEnabled(true);
     }//GEN-LAST:event_btGuardarActionPerformed
@@ -215,13 +229,15 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     //inicializo el combo box
-    public void cargarAlumnos(){
+    private void cargarAlumnos(){
+        // cargar los alumnos que tienen una inscripcion
+        if(!listaAlumnos.isEmpty())
+             for(Alumno item:listaAlumnos)
+                   cbxAlumno.addItem(item);
         
-        for(Alumno item:listaAlumnos)
-            cbxAlumno.addItem(item);
     }
     
-    public void armarCabeceraTabla(){
+    private void armarCabeceraTabla(){
         ArrayList<Object> columns=new ArrayList();
         columns.add("ID");
         columns.add("MATERIA");
@@ -238,8 +254,13 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
           modelo.removeRow(i);
     }
     
-    public void cargarDatos(){
-        listaInscripcion = (ArrayList<Inscripcion>) InscripcionData.obtenerInscripciones();
+    private void cargarDatos(){
+        
+        if(listaAlumnos.isEmpty())
+            return;
+        InscripcionData inscripcionData=new InscripcionData();
+         
+        listaInscripcion = (ArrayList<Inscripcion>) inscripcionData.obtenerInscripciones();
         borrarFilasTabla();
         Alumno a =(Alumno)cbxAlumno.getSelectedItem();
         for(Inscripcion m:listaInscripcion){

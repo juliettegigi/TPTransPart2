@@ -7,6 +7,7 @@ package tptranspart2.vistas;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import tptranspart2.accesoADatos.InscripcionData;
 import tptranspart2.accesoADatos.MateriaData;
 import tptranspart2.entidades.Materia;
 
@@ -196,11 +197,16 @@ public class MateriasView extends javax.swing.JInternalFrame {
 
     private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
         //si no existe me dice "materia dada de baja"
-        if (MateriaData.darBajaMaterias(Integer.parseInt(tfCodigo.getText()))) {
-            JOptionPane.showMessageDialog(this, "Materia dada de baja");
-        } else {
-            JOptionPane.showMessageDialog(this, "Baja no realizada");
+        MateriaData materiaData = new MateriaData();
+        InscripcionData inscripcionData=new InscripcionData();
+        try{
+            int id=Integer.parseInt(tfCodigo.getText());
+        materiaData.desactivarMateria(id);
+        inscripcionData.eliminarInscripcionPorIdMateria(id);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error en el campo código.\n"+e.getMessage());
         }
+        
         limpiar();
     }//GEN-LAST:event_btBorrarActionPerformed
 
@@ -213,8 +219,8 @@ public class MateriasView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "El código debe ser un número");
             return;
         }
-        
-        Materia m = MateriaData.buscarMateria(i);
+        MateriaData materiaData = new MateriaData();
+        Materia m = materiaData.buscarMateria(i);
         if (m == null) {
             JOptionPane.showMessageDialog(this, "La materia con ID: " + tfCodigo.getText() + " no existe en nuestro registro");
             btBorrar.setEnabled(false);
@@ -233,19 +239,35 @@ public class MateriasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        //  ejecutar el guardar materia
-        String nombre = tfNombre.getText();
-        int anio=0;
+        MateriaData materiaData = new MateriaData();
+        
+        
+        if (!validar())
+            return;
+        ////////////////////  SI ME INGRESA EL NOMBRE DE UNA MATERIA QUE YA EXISTE ....MENSAJE DE ERROR 
+        boolean estado = cbxEstado.isSelected();//me retorna true si está activado
+        //(String nombre, int anio, boolean estado)
+        Materia materia = new Materia(tfNombre.getText(),Integer.parseInt(tfAnio.getText()),estado);
+        materiaData.guardarMateria(materia);
+        
+    }//GEN-LAST:event_btGuardarActionPerformed
+
+    
+    
+    private boolean validar(){
         ArrayList<String> errores=new ArrayList();
         
-        nombre=nombre.trim();
         
-        if(nombre.length()==0)
+        int anio=0;
+        String nombre = tfNombre.getText();
+        
+        
+        if(nombre.trim().length()==0)
             errores.add("El campo nombre es obligatorio");
         else{
             
-             if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*")){
-            errores.add("ha ingresado un carácter no válido");
+             if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü0-9]+)*")){
+            errores.add("Ha ingresado un carácter no válido en el nombre de la materia.\n");
              }
            
         }
@@ -253,13 +275,14 @@ public class MateriasView extends javax.swing.JInternalFrame {
           anio = Integer.parseInt(tfAnio.getText());    
         }
         catch(Exception e){
-            errores.add("El año ingresado es incorrecto");
+            errores.add("El año ingresado es incorrecto.\n");
         }
+        
         if(anio<1 || anio>7)
-             errores.add("Los años permitidos son 1-7");
+             errores.add("Los años permitidos son 1-7.\n");
         
         //////////////////////////////////// SI HAY CAMPOS MAL ... MENSAJE DE ERROR
-        if(errores.size()!=0){
+        if(!errores.isEmpty()){
             String mensaje="";
             for(int i=0; i<errores.size();i++){
                 if(i==errores.size()-1)
@@ -267,72 +290,26 @@ public class MateriasView extends javax.swing.JInternalFrame {
                 else  mensaje+=errores.get(i)+".";
             }
           JOptionPane.showMessageDialog(this,mensaje);
-          return;
+          return false;
         }
-        
-        ////////////////////  SI ME INGRESA EL NOMBRE DE UNA MATERIA QUE YA EXISTE ....MENSAJE DE ERROR 
-        boolean estado = cbxEstado.isSelected();//me retorna true si está activado
-        //(String nombre, int anio, boolean estado)
-        Materia materia = new Materia(nombre,anio,estado);
-       if( MateriaData.guardarMateria(materia)){           
-          tfCodigo.setText(materia.getIdMateria() + "");
-          JOptionPane.showMessageDialog(this, "La materia ya ha sido guardada");
-       }
-       else   tfCodigo.setText("");
-        
-    }//GEN-LAST:event_btGuardarActionPerformed
-
+        return true;
+    }
+    
+    
+    
     private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
-            
-           int codigo=0,anio=0;
-           ArrayList<String> errores=new ArrayList();
-            String nombre = tfNombre.getText();
-           //VALIDO EL CODIGO
-            try{
-              codigo=Integer.parseInt(tfCodigo.getText());     
-           }catch(Exception e){
-               errores.add("El código debe ser un número");
-           } 
-          //VALIDO EL NOMBRE
-            nombre=nombre.trim();
-            if(nombre.length()==0)
-               errores.add("El campo nombre es obligatorio");
-            else{
-                if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*")){
-                    errores.add("ha ingresado un carácter no válido");
-                }
-            }
-            
-            // VALIDO EL AÑO
-           try{
-          anio = Integer.parseInt(tfAnio.getText());    
-        }
-        catch(Exception e){
-            errores.add("El año ingresado es incorrecto");
-        }
-        if(anio<1 || anio>7)
-             errores.add("Los años permitidos son 1-7");
-            
-        // SI HAY ERROR EN LOS CAPOS...CARTEL Y CHAU
-          if(errores.size()!=0){
-            String mensaje="";
-            for(int i=0; i<errores.size();i++){
-                if(i==errores.size()-1)
-                    mensaje+=errores.get(i)+", ";
-                else  mensaje+=errores.get(i)+".";
-            }
-          JOptionPane.showMessageDialog(this,mensaje);
-          return;
-        }
+            MateriaData materiaData = new MateriaData();
+           
+           
+           if (!validar())
+            return;
           
           
         ///  TODO BIEN ... EJECUTO EL UPDATEMATERIA  
         
         boolean estado = cbxEstado.isSelected();//me retorna true si está activado
-        Materia materia = new Materia(codigo,nombre, anio, estado);
-        if(MateriaData.modificarMateria(materia)){
-          JOptionPane.showMessageDialog(this, "La materia ya ha sido actualizada");
-        }
+        Materia materia = new Materia(Integer.parseInt(tfCodigo.getText()),tfNombre.getText(),Integer.parseInt(tfAnio.getText()),cbxEstado.isSelected());
+        materiaData.modificarMateria(materia);
         
      
     }//GEN-LAST:event_btActualizarActionPerformed

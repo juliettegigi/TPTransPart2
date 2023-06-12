@@ -2,11 +2,10 @@
 
 package tptranspart2.vistas;
 
-import java.sql.Connection;
+
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import tptranspart2.accesoADatos.AlumnoData;
-import tptranspart2.accesoADatos.Conexion;
 import tptranspart2.accesoADatos.InscripcionData;
 import tptranspart2.accesoADatos.MateriaData;
 import tptranspart2.entidades.Alumno;
@@ -23,11 +22,15 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
     
     
     public ListadoDeAlumnosPorMateriaView() {
+        
        initComponents();
+       InscripcionData inscripcionData=new InscripcionData();
+       MateriaData materiaData=new MateriaData();
+       AlumnoData alumnoData=new AlumnoData();
        modelo=new DefaultTableModel();
-       listaInscripcion=(ArrayList<Inscripcion>) InscripcionData.obtenerInscripciones();
-       listaMaterias=(ArrayList<Materia>) MateriaData.listarMaterias();
-       listaAlumnos=(ArrayList<Alumno>) AlumnoData.listarAlumnos();
+       listaInscripcion=(ArrayList<Inscripcion>) inscripcionData.obtenerInscripciones();
+       listaMaterias=(ArrayList<Materia>) materiaData.listarMaterias();
+       listaAlumnos=(ArrayList<Alumno>) alumnoData.listarAlumnosActivos(true);
        cargarMaterias();
        armarCabeceraTabla();
        cargarDatos();
@@ -44,6 +47,7 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
         cbMaterias = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tAlumnos = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setPreferredSize(new java.awt.Dimension(600, 450));
@@ -73,24 +77,31 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tAlumnos);
 
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setText("ALUMNOS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addGap(127, 127, 127))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1))
-                        .addGap(127, 127, 127))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(jLabel3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,9 +112,11 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(29, 29, 29)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,13 +128,13 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
 
     
     //inicializo el combo box
-    public void cargarMaterias(){
+    private void cargarMaterias(){
         for(Materia item:listaMaterias)
             cbMaterias.addItem(item);
         
     }
     
-    public void armarCabeceraTabla(){
+    private void armarCabeceraTabla(){
         //creo las columnas de la tabla
         ArrayList<Object> columns=new ArrayList();
         columns.add("ID");
@@ -144,7 +157,7 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
     }
     
     
-    public void cargarDatos(){
+    private void cargarDatos(){
         borrarFilasTabla();
         Materia mat=(Materia)cbMaterias.getSelectedItem();
         for(Inscripcion m:listaInscripcion){
@@ -159,6 +172,7 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Materia> cbMaterias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tAlumnos;
     // End of variables declaration//GEN-END:variables

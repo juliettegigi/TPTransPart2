@@ -7,6 +7,7 @@ package tptranspart2.vistas;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -41,8 +42,10 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         MMaterias = new javax.swing.JMenu();
         MIFormMateria = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         MAlumnos = new javax.swing.JMenu();
         MIFormAlumno = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         MInscripciones = new javax.swing.JMenu();
         MIManejoInscripciones = new javax.swing.JMenuItem();
         MCargaNotas = new javax.swing.JMenu();
@@ -76,6 +79,14 @@ public class Principal extends javax.swing.JFrame {
         });
         MMaterias.add(MIFormMateria);
 
+        jMenuItem3.setText("Activar materia");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        MMaterias.add(jMenuItem3);
+
         jMenuBar1.add(MMaterias);
 
         MAlumnos.setText("Alumnos");
@@ -87,6 +98,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         MAlumnos.add(MIFormAlumno);
+
+        jMenuItem2.setText("Activar alumno");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        MAlumnos.add(jMenuItem2);
 
         jMenuBar1.add(MAlumnos);
 
@@ -116,12 +135,12 @@ public class Principal extends javax.swing.JFrame {
 
         MConsulta.setText("Consultas");
         MConsulta.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                MConsultaAncestorMoved(evt);
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-                MConsultaAncestorMoved(evt);
             }
         });
 
@@ -170,49 +189,28 @@ public class Principal extends javax.swing.JFrame {
 
 
     private void MIFormAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIFormAlumnoActionPerformed
-        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
-        escritorio.repaint();//dibuja todo de nuevo
-        AlumnosView alumnosView = new AlumnosView();
-        alumnosView.setVisible(true);
-        escritorio.add(alumnosView);
-        escritorio.moveToFront(alumnosView);
+        cargarInternal(new AlumnosView());
+      
 
     }//GEN-LAST:event_MIFormAlumnoActionPerformed
 
     private void MIFormMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIFormMateriaActionPerformed
-        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
-        escritorio.repaint();//dibuja todo de nuevo
-        MateriasView materiasView = new MateriasView();
-        materiasView.setVisible(true);
-        escritorio.add(materiasView);
-        escritorio.moveToFront(materiasView);
+       cargarInternal(new MateriasView());
+       
     }//GEN-LAST:event_MIFormMateriaActionPerformed
 
     private void MIManejoInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIManejoInscripcionesActionPerformed
-        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
-        escritorio.repaint();//dibuja todo de nuevo
-        ManejoInscripcionesView manejoInscripcionesView = new ManejoInscripcionesView();
-        manejoInscripcionesView.setVisible(true);
-        escritorio.add(manejoInscripcionesView);
-        escritorio.moveToFront(manejoInscripcionesView);
+       cargarInternal(new ManejoInscripcionesView());
+       
     }//GEN-LAST:event_MIManejoInscripcionesActionPerformed
 
     private void MIManipulacionNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIManipulacionNotasActionPerformed
-        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
-        escritorio.repaint();//dibuja todo de nuevo
-        ManipulacionDeNotasView manipulacionDeNotasView = new ManipulacionDeNotasView();
-        manipulacionDeNotasView.setVisible(true);
-        escritorio.add(manipulacionDeNotasView);
-        escritorio.moveToFront(manipulacionDeNotasView);
+       cargarInternal( new ManipulacionDeNotasView());
     }//GEN-LAST:event_MIManipulacionNotasActionPerformed
 
     private void MIListaAlumXMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MIListaAlumXMateriaActionPerformed
-        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
-        escritorio.repaint();//dibuja todo de nuevo
-        ListadoDeAlumnosPorMateriaView listadoDeAlumnosPorMateriaView = new ListadoDeAlumnosPorMateriaView();
-        listadoDeAlumnosPorMateriaView.setVisible(true);
-        escritorio.add(listadoDeAlumnosPorMateriaView);
-        escritorio.moveToFront(listadoDeAlumnosPorMateriaView);
+        cargarInternal(new ListadoDeAlumnosPorMateriaView());
+       
     }//GEN-LAST:event_MIListaAlumXMateriaActionPerformed
 
     private void MConsultaAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_MConsultaAncestorMoved
@@ -227,6 +225,24 @@ public class Principal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jmSalirMouseClicked
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+      
+          cargarInternal(new ActivarAlumnoView());
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        cargarInternal(new ActivarMateriaView());
+       
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void cargarInternal(JInternalFrame j){
+        escritorio.removeAll(); //si hay una ventana abierta, la limpia,la remueve 
+        escritorio.repaint();//dibuja todo de nuevo        
+        j.setVisible(true);
+        escritorio.add(j);
+        escritorio.moveToFront(j);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -276,6 +292,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
 }

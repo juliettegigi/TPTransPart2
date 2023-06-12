@@ -238,101 +238,51 @@ public class AlumnosView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        //  ejecutar el guardar alumno
         
-        
-        //VALIDO
-        ArrayList<String> errores=new ArrayList(); 
-        
-        String nombre=jtNombre.getText().trim();
-        String apellido=jtApellido.getText().trim();
+         if(!validar())
+            return;
+        AlumnoData alumnoData=new AlumnoData();
         Date fechaDate=jDateChooser.getDate();
-        LocalDate fechaLocalDate=null;
-        System.out.println("a verr"+fechaDate);
-       
-        // fechaLocalDate  tiene este formato: 2023-05-02
-        boolean activo=chActivo.isSelected();//me retorna true si está activado
-        int dni=0;
-       
-        //VALIDO FECHA
-        if(fechaDate==null)
-            errores.add("El campo \"fecha de nacimiento\" es obligatorio");
-        else
-           fechaLocalDate=fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        //VALIDO EL NOMBRE   
-        if(nombre.length()==0)
-            errores.add("El campo nombre es obligatorio");
-        else{
-           if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*"))
-              errores.add("ha ingresado un carácter no válido en el campo nombre");
-        }
-        
-        //VALIDO EL APELLIDO
-        if(nombre.length()==0)
-            errores.add("El campo apellido es obligatorio");
-        else{
-           if(!nombre.toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*"))
-              errores.add("ha ingresado un carácter no válido en el campo apellido");
-        }
-        
-        //VALIDO DNI
-        if(jtDni.getText().length()<7 || jtDni.getText().length()>10)
-            errores.add("El campo DNI acepta 7-10 dígitos ");
-        else{
-             try{
-                 dni=Integer.parseInt(jtDni.getText());
-             }catch(Exception e){
-                  errores.add("El campo DNI solo acepta números");
-              }   
-        }
-         
-        //////////////////////////////////// SI HAY CAMPOS MAL ... MENSAJE DE ERROR
-        if(errores.size()!=0){
-            String mensaje="";
-            for(int i=0; i<errores.size();i++){
-                if(i==errores.size()-1)
-                    mensaje+=errores.get(i)+", ";
-                else  mensaje+=errores.get(i)+".";
-            }
-          JOptionPane.showMessageDialog(this,mensaje);
-          return;
-        }
-        
-        
-        
-        //SI TODO BIEN GUARDO
-        Alumno alumno=new Alumno(dni,nombre,apellido, fechaLocalDate,activo);
-        if(AlumnoData.guardarAlumno(alumno)){
-            JOptionPane.showMessageDialog(this,"Alumno guardado");
-            jtId.setText(alumno.getIdAlumno()+"");
-        }
-          
-        else JOptionPane.showMessageDialog(this,"El alumno no ha podido ser guardado");
+        LocalDate fechaLocalDate=fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();    
+        Alumno alumno=new Alumno(Integer.parseInt(jtDni.getText()),jtNombre.getText(),jtApellido.getText(), fechaLocalDate,chActivo.isSelected());
+        alumnoData.guardarAlumno(alumno);
        
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
-      if( AlumnoData.darBajaAlumno(Integer.parseInt(jtId.getText())))
-              JOptionPane.showMessageDialog(this,"Alumno dado de baja");
-      else JOptionPane.showMessageDialog(this,"Baja no realizada");
+      AlumnoData alumnoData=new AlumnoData();
+      try{
+        alumnoData.desactivarAlumno(Integer.parseInt(jtId.getText()));    
+      }catch(Exception e){
+          JOptionPane.showMessageDialog(this,"Error en el campo id.\n"+e.getMessage());
+      }
+      
+              
     }//GEN-LAST:event_btBorrarActionPerformed
 
     private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
-       if(jtId.getText()!=null){
-           int id=Integer.parseInt(jtId.getText());
-           String nombre=jtNombre.getText();
-           String apellido=jtApellido.getText();
-           Date fechaDate=jDateChooser.getDate();
-           LocalDate fechaLocalDate=fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-           // fechaLocalDate  tiene este formato: 2023-05-02
-           boolean activo=chActivo.isSelected();//me retorna true si está activado
-           int dni=Integer.parseInt(jtDni.getText());
-           Alumno alumno=new Alumno(id,dni,nombre,apellido, fechaLocalDate,activo);
-           if(AlumnoData.modificarAlumno(alumno))
-                JOptionPane.showMessageDialog(this,"Alumno actualizado");
-           else JOptionPane.showMessageDialog(this,"El alumno no ha podido ser actualizado");
-       }  
+        
+         if(!validar())
+            return;
+         //validarID
+         int id=0;
+         try{
+             id=Integer.parseInt(jtId.getText());
+         }catch(Exception e){
+             JOptionPane.showMessageDialog(this, "Error en el campo id.\n"+e.getMessage());
+             return;
+         }
+        AlumnoData alumnoData=new AlumnoData();
+        String nombre=jtNombre.getText();
+        String apellido=jtApellido.getText();
+        Date fechaDate=jDateChooser.getDate();
+        LocalDate fechaLocalDate=fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        boolean activo=chActivo.isSelected();//me retorna true si está activado
+        int dni=Integer.parseInt(jtDni.getText());
+        Alumno alumno=new Alumno(id,dni,nombre,apellido, fechaLocalDate,activo);
+        alumnoData.modificarAlumno(alumno);
+                
+       
     }//GEN-LAST:event_btActualizarActionPerformed
 
     private void btLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarActionPerformed
@@ -348,8 +298,16 @@ public class AlumnosView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btLimpiarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        Alumno a=AlumnoData.buscarAlumno(Integer.parseInt(jtId.getText()));
+         AlumnoData alumnoData=new AlumnoData();
+         Alumno a=null;
+         try{
+             a=alumnoData.buscarAlumnoActivo(Integer.parseInt(jtId.getText()));
+         }catch(Exception e){
+             JOptionPane.showMessageDialog(this, "Error en el campo id.\n"+e.getMessage());
+             return;
+         }
+
+         
         if(a==null)
             JOptionPane.showMessageDialog(this,"El alumno cuyo id="+jtId.getText()+" no existe en nuestro registro");
         else{
@@ -373,6 +331,58 @@ public class AlumnosView extends javax.swing.JInternalFrame {
         btGuardar.setEnabled(true);
     }//GEN-LAST:event_jtDniKeyReleased
 
+    
+    
+    private boolean validar(){
+        ArrayList<String> errores=new ArrayList(); 
+        
+        Date fechaDate=jDateChooser.getDate();
+        LocalDate fechaLocalDate=null;        
+       
+        //VALIDO FECHA
+        if(fechaDate==null)
+            errores.add("El campo \"fecha de nacimiento\" es obligatorio");        
+        //VALIDO EL NOMBRE   
+        if(jtNombre.getText().trim().length()==0)
+            errores.add("El campo nombre es obligatorio");
+        else{
+           if(!jtNombre.getText().toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*"))
+              errores.add("ha ingresado un carácter no válido en el campo nombre");
+        }
+        //VALIDO EL APELLIDO
+        if(jtApellido.getText().trim().length()==0)
+            errores.add("El campo apellido es obligatorio");
+        else{
+           if(!jtApellido.getText().toLowerCase().matches("[a-zñá-úä-ü]+(\\s[a-zñá-úä-ü]+)*"))
+              errores.add("ha ingresado un carácter no válido en el campo apellido");
+        }
+        
+        //VALIDO DNI
+         try{
+                 Integer.parseInt(jtDni.getText());
+                 if(jtDni.getText().length()<7 || jtDni.getText().length()>10)
+                    errores.add("El campo DNI acepta 7-10 dígitos ");
+             }catch(Exception e){
+                  errores.add("El campo DNI solo acepta números");
+              } 
+         
+        
+        
+               //////////////////////////////////// SI HAY CAMPOS MAL ... MENSAJE DE ERROR
+        if(!errores.isEmpty()){
+            String mensaje="";
+            for(int i=0; i<errores.size();i++){
+                if(i==errores.size()-1)
+                    mensaje+=errores.get(i)+", ";
+                else  mensaje+=errores.get(i)+".";
+            }
+          JOptionPane.showMessageDialog(this,mensaje);
+          return false;
+        }
+        return true;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btActualizar;
