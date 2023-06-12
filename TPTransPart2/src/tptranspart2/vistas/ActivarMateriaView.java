@@ -41,6 +41,8 @@ public class ActivarMateriaView extends javax.swing.JInternalFrame {
         jTableT = new javax.swing.JTable();
         btnActivar = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setText("LISTADO DE MATERIAS NO ACTIVAS");
 
         jTableT.setModel(new javax.swing.table.DefaultTableModel(
@@ -143,6 +145,8 @@ public class ActivarMateriaView extends javax.swing.JInternalFrame {
         
             listaMateria=(ArrayList<Materia>) materiaData.listarMateriasActivas(false);
        
+            if(listaMateria.isEmpty())
+                return;
             
         for(Materia a:listaMateria){
                 modelo.addRow(new Object[]{a.getIdMateria(),a.getNombre(),a.getAnio()});

@@ -42,6 +42,8 @@ public class ActivarAlumnoView extends javax.swing.JInternalFrame {
         jTableT = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setText("LISTADO DE ALUMNOS NO ACTIVOS");
 
         jTableT.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,7 +151,8 @@ public class ActivarAlumnoView extends javax.swing.JInternalFrame {
         //obtengo la lista de las materias q cursa el alumno seleccionado
         
             listaAlumnos=(ArrayList<Alumno>) alumnoData.listarAlumnosActivos(false);
-       
+       if(listaAlumnos.isEmpty())
+           return;
             
         for(Alumno a:listaAlumnos){
                 modelo.addRow(new Object[]{a.getIdAlumno(),a.getDni(),a.getApellido(),a.getNombre()});
