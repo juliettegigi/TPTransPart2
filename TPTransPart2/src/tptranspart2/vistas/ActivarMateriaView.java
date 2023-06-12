@@ -18,8 +18,9 @@ import tptranspart2.entidades.Materia;
  * @author julie
  */
 public class ActivarMateriaView extends javax.swing.JInternalFrame {
-
+    private MateriaData materiaData=new MateriaData();
     private DefaultTableModel modelo;
+    
     public ActivarMateriaView() {
         initComponents();
          modelo=new DefaultTableModel();
@@ -103,8 +104,6 @@ public class ActivarMateriaView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Tiene que seleccionar a una materia.");
             return;
         }
-        
-          MateriaData materiaData=new MateriaData();
         //recupero el id 
         int id=(int) jTableT.getValueAt(fila, 0);
         materiaData.activarMateria(id);
@@ -139,7 +138,6 @@ public class ActivarMateriaView extends javax.swing.JInternalFrame {
    private void llenarTabla(){
         borrarFilas();
         ArrayList<Materia> listaMateria=null;
-        MateriaData materiaData=new MateriaData();
         
         //obtengo la lista de las materias q cursa el alumno seleccionado
         

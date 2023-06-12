@@ -17,9 +17,8 @@ import tptranspart2.entidades.Materia;
  */
 public class MateriasView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form MateriasView
-     */
+    private MateriaData materiaData = new MateriaData();
+    
     public MateriasView() {
         initComponents();
         limpiar();
@@ -197,7 +196,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
 
     private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
         //si no existe me dice "materia dada de baja"
-        MateriaData materiaData = new MateriaData();
+       
         InscripcionData inscripcionData=new InscripcionData();
         try{
             int id=Integer.parseInt(tfCodigo.getText());
@@ -219,7 +218,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "El código debe ser un número");
             return;
         }
-        MateriaData materiaData = new MateriaData();
+        
         Materia m = materiaData.buscarMateria(i);
         if (m == null) {
             JOptionPane.showMessageDialog(this, "La materia con ID: " + tfCodigo.getText() + " no existe en nuestro registro");
@@ -239,7 +238,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        MateriaData materiaData = new MateriaData();
+        
         
         
         if (!validar())
@@ -298,7 +297,7 @@ public class MateriasView extends javax.swing.JInternalFrame {
     
     
     private void btActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActualizarActionPerformed
-            MateriaData materiaData = new MateriaData();
+            
            
            
            if (!validar())

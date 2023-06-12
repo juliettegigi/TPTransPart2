@@ -19,6 +19,8 @@ import tptranspart2.entidades.Alumno;
 public class ActivarAlumnoView extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
+    private  AlumnoData alumnoData=new AlumnoData();
+    
     
     public ActivarAlumnoView() {
         initComponents();
@@ -113,7 +115,7 @@ public class ActivarAlumnoView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this,"Tiene que seleccionar a un alumno");
             return;
         }
-        AlumnoData alumnoData=new AlumnoData();
+       
         //recupero el id 
         int id=(int) jTableT.getValueAt(fila, 0);
         alumnoData.activarAlumno(id);
@@ -146,7 +148,7 @@ public class ActivarAlumnoView extends javax.swing.JInternalFrame {
    private void llenarTabla(){
         borrarFilas();
         ArrayList<Alumno> listaAlumnos=null;
-        AlumnoData alumnoData=new AlumnoData();
+       
         
         //obtengo la lista de las materias q cursa el alumno seleccionado
         

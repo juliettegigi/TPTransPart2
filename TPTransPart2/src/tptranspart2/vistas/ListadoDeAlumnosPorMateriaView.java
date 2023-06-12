@@ -18,15 +18,13 @@ public class ListadoDeAlumnosPorMateriaView extends javax.swing.JInternalFrame {
     private ArrayList<Inscripcion> listaInscripcion;
     private ArrayList<Materia> listaMaterias;
     private ArrayList<Alumno> listaAlumnos;
-  
-    
+    private  AlumnoData alumnoData=new AlumnoData();
+    private MateriaData materiaData=new MateriaData();
     
     public ListadoDeAlumnosPorMateriaView() {
         
        initComponents();
        InscripcionData inscripcionData=new InscripcionData();
-       MateriaData materiaData=new MateriaData();
-       AlumnoData alumnoData=new AlumnoData();
        modelo=new DefaultTableModel();
        listaInscripcion=(ArrayList<Inscripcion>) inscripcionData.obtenerInscripciones();
        listaMaterias=(ArrayList<Materia>) materiaData.listarMaterias();

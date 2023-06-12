@@ -24,13 +24,13 @@ import tptranspart2.entidades.Materia;
 public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo;
     private ArrayList<Alumno> listaAlumnos;
- 
-
+    private AlumnoData alumnoData=new AlumnoData();
+    private InscripcionData inscripcionData=new InscripcionData();
     /**
      * Creates new form ManejoInscripcionesView
      */
     public ManejoInscripcionesView() {
-        AlumnoData alumnoData=new AlumnoData();
+        
         initComponents();
         modelo=new DefaultTableModel();
         listaAlumnos=(ArrayList<Alumno>) alumnoData.listarAlumnosActivos(true);
@@ -234,7 +234,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxAlumnosActionPerformed
     
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
-                   InscripcionData inscripcionData=new InscripcionData();        
+                        
 
 // boton Inscribir
         
@@ -263,7 +263,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
 
     private void jbAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularActionPerformed
         // boton Anular Inscripcion
-        InscripcionData inscripcionData=new InscripcionData(); 
+        
         ////ver que fila de la tabla me seleccionó el user(empizan desde cero, me retorna -1 si no hay nada seleccionado)
           int fila=jTableT.getSelectedRow();
         if(fila==-1){
@@ -333,7 +333,7 @@ public class ManejoInscripcionesView extends javax.swing.JInternalFrame {
     private void llenarTabla(boolean f){
         borrarFilas();
         ArrayList<Materia> listaMaterias=null;
-         InscripcionData inscripcionData=new InscripcionData();
+         
           Alumno a=(Alumno)jComboBoxAlumnos.getSelectedItem();
         //obtengo la lista de las materias q cursa el alumno seleccionado
         if(f==true)

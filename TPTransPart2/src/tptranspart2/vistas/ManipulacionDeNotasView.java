@@ -27,14 +27,15 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
     private ArrayList<Inscripcion> listaInscripcion;
     private ArrayList<Materia> listaMaterias;
     private ArrayList<Alumno> listaAlumnos;
-
+    private MateriaData materiaData=new MateriaData();
+    private AlumnoData alumnoData=new AlumnoData();
+    private InscripcionData inscripcionData=new InscripcionData();
     /**
      * Creates new form ManipulacionDeNotasView
      */
     public ManipulacionDeNotasView() {
-        MateriaData materiaData=new MateriaData();
-        AlumnoData alumnoData=new AlumnoData();
-        InscripcionData inscripcionData=new InscripcionData();
+        
+        
         initComponents();
         btnActualizar.setEnabled(false);
         modelo = new DefaultTableModel() {
@@ -177,7 +178,6 @@ public class ManipulacionDeNotasView extends javax.swing.JInternalFrame {
         // VAMOS A HACER UN "InscripcionData.actualizarNota(a.getIdAlumno(), m, nota);" CON TODAS LAS ROWS
         ArrayList<String> errores=new ArrayList();
         Alumno a=(Alumno) cbxAlumno.getSelectedItem();
-InscripcionData inscripcionData=new InscripcionData();
         // Recorrer la tabla y obtener los datos
         for (int row = 0; row < tabNotas.getRowCount(); row++) {
                 // recupero el id de la materia                 
@@ -258,7 +258,6 @@ InscripcionData inscripcionData=new InscripcionData();
         
         if(listaAlumnos.isEmpty())
             return;
-        InscripcionData inscripcionData=new InscripcionData();
          
         listaInscripcion = (ArrayList<Inscripcion>) inscripcionData.obtenerInscripciones();
         borrarFilasTabla();

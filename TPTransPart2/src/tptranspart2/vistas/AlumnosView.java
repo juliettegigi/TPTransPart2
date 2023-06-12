@@ -23,7 +23,7 @@ import tptranspart2.entidades.Alumno;
 public class AlumnosView extends javax.swing.JInternalFrame {
 
     
-    /*necesito acceso a la conexión y usar */
+   private AlumnoData alumnoData=new AlumnoData();
    
     
     public AlumnosView() {
@@ -241,7 +241,6 @@ public class AlumnosView extends javax.swing.JInternalFrame {
         
          if(!validar())
             return;
-        AlumnoData alumnoData=new AlumnoData();
         Date fechaDate=jDateChooser.getDate();
         LocalDate fechaLocalDate=fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();    
         Alumno alumno=new Alumno(Integer.parseInt(jtDni.getText()),jtNombre.getText(),jtApellido.getText(), fechaLocalDate,chActivo.isSelected());
@@ -250,7 +249,7 @@ public class AlumnosView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarActionPerformed
-      AlumnoData alumnoData=new AlumnoData();
+      
       try{
         alumnoData.desactivarAlumno(Integer.parseInt(jtId.getText()));    
       }catch(Exception e){
@@ -272,7 +271,7 @@ public class AlumnosView extends javax.swing.JInternalFrame {
              JOptionPane.showMessageDialog(this, "Error en el campo id.\n"+e.getMessage());
              return;
          }
-        AlumnoData alumnoData=new AlumnoData();
+        
         String nombre=jtNombre.getText();
         String apellido=jtApellido.getText();
         Date fechaDate=jDateChooser.getDate();
@@ -298,7 +297,7 @@ public class AlumnosView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btLimpiarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         AlumnoData alumnoData=new AlumnoData();
+         
          Alumno a=null;
          try{
              a=alumnoData.buscarAlumnoActivo(Integer.parseInt(jtId.getText()));
